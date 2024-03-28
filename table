@@ -1,0 +1,236 @@
+getgenv().Fearless = {
+    ['ScriptKey'] = '', -- Fearless.ScriptKey
+    ['Intro'] = true,
+
+    ['Silent Aim'] = {
+        ['Keybind']  = 'C',
+        ['Activate'] = 'Toggle', -- Toggle, Hold
+
+        ['FOV'] = {
+            ['Color']   = Color3.fromRGB(255, 255, 255),
+            ['Radius']  = 200,
+            ['Visible'] = true,
+        };
+        ['Hit Part'] = {
+            ['Chance'] = 100,
+            ['Type']   = 'Nearest Point', -- 'Nearest Player', 'Nearest Part', 'Nearest Point'
+            ['Show']   = false,
+            ['Parts']  = {
+                'HumanoidRootPart',
+                'Head',
+                'LeftLowerArm', 
+                'RightLowerArm', 
+                'LeftUpperArm', 
+                'RightUpperArm',
+                'LeftLowerLeg',
+                'UpperTorso', 
+                'LeftUpperLeg', 
+                'RightLowerLeg',
+                'LowerTorso', 
+                'RightUpperLeg',
+            },
+        };
+    };
+
+    ['Camlock'] = {
+        ['Keybind']    = 'C',
+        ['Activate']   = 'Toggle', -- Toggle, Hold
+
+        ['Realistic Movement'] = {
+            ['Enabled']     = true,
+            ['Smoothing']   = {['Horizontal'] = 8, ['Vertical'] = 6},
+            ['Sensitivity'] = {['Horizontal'] = 0.25, ['Vertical'] = 0.25},
+        };
+        ['Robotic Movement'] = {
+            ['Types']        = {['First'] = 'Cubic', ['Second'] = 'Bounce'};
+            ['Sensitivity']  = 0.20015,
+        };
+        ['FOV'] = {
+            ['Color']   = Color3.fromRGB(255, 255, 255),
+            ['Radius']  = 300,
+            ['Visible'] = false,
+        };
+        ['Hit Part'] = {
+            ['Type']   = 'Nearest Point', -- 'Nearest Player', 'Nearest Part', 'Nearest Point'
+            ['Parts']  = {
+                'HumanoidRootPart',
+                'Head',
+                'LeftLowerArm', 
+                'RightLowerArm', 
+                'LeftUpperArm', 
+                'RightUpperArm',
+                'LeftLowerLeg',
+                'UpperTorso', 
+                'LeftUpperLeg', 
+                'RightLowerLeg',
+                'LowerTorso', 
+                'RightUpperLeg',
+            },
+        };
+        ['Shake'] = {
+            ['Enabled'] = false,
+            ['Amount'] = {['X'] = 15, ['Y'] = 15, ['Z'] = 15}
+        };
+        ['Spin'] = {
+            ['Keybind'] = 'C',
+            ['Enabled'] = false,
+            ['Speed']   = 20,
+        };
+    };
+
+    ['Target'] = {
+        ['Keybind']  = 'C',
+        ['Activate'] = 'Toggle', -- Toggle, Hold
+        ['Show']     = false,
+        ['Color']    = Color3.fromRGB(255, 255, 255),
+    };
+
+    ['Triggerbot'] = {
+        ['Enabled']  = true,
+        ['Keybind']  = 'L',
+        ['Activate'] = 'Hold',
+        ['Reload']   = true,
+        ['Delay']    = 0.07,
+
+        ['FOV'] = {
+            ['Color']     = Color3.fromRGB(195, 209, 38),
+            ['Smoothing'] = 1,
+            ['Visible']   = true,
+            ['Height']    = 6,
+            ['Width']     = 4,
+        };
+
+    };
+
+    ['Prediction']  = { -- Fearless.Prediction.Ping
+        ['Default'] = 0.129,
+        ['Jump Offset'] = 3.2,
+        ['Fall Offset'] = 0.07,
+        ['Ping'] = {
+            ['Enabled'] = true,
+
+            ['10-20']   = 0.11108,
+            ['20-30']   = 0.1188,
+            ['30-40']   = 0.11652,
+            ['40-50']   = 0.1201,
+            ['50-60']   = 0.1229,
+            ['60-70']   = 0.1229,
+            ['70-80']   = 0.1312,
+            ['80-90']   = 0.13402,
+            ['90-100']  = 0.14234,
+            ['100-110'] = 0.15066,
+            ['110-120'] = 0.1673,
+            ['120-130'] = 0.1673,
+            ['130-140'] = 0.17562,
+            ['140-150'] = 0.18394,
+            ['150-160'] = 0.19226,
+            ['160-170'] = 0.20058,
+            ['170-180'] = 0.2089,
+            ['180-190'] = 0.21722,
+            ['190-200'] = 0.22554,
+        };
+    };
+
+    ['Checks'] = {
+        ['Wall']       = true,
+        ['Alive']      = true,
+        ['ForceField'] = true,
+        ['Knocked']    = true,
+        ['Grabbed']    = true,
+    };
+
+    ['Macro'] = {
+        ['Speed'] = {
+            ['Enabled'] = true,
+            ['Type']    = 'Scroll', -- Ingame, Scroll
+            ['Keybind'] = 'X',
+            ['Mode']    = 'Hold',
+            ['Delay']   = 0.020,
+        };
+        ['Noclip'] = {
+            ['Enabled']  = true,
+            ['Keybind']  = 'L',
+            ['Activate'] = 'Hold',
+            ['Slot']     = 2,
+        };
+    };
+
+    ['Inventory'] = {
+        ['Enabled'] = true,
+        ['Keybind'] = 'B',
+
+        ['Sort Food'] = true,
+        ['Assortment'] = {
+            [5]  = '[Knife]',
+            [3]  = '[TacticalShotgun]',
+            [2]  = '[Double-Barrel SG]',
+            [1]  = '[Revolver]',
+            [4]  = '',
+            [6]  = '',
+            [7]  = '',
+            [8]  = '',
+            [9]  = '',
+            [10] = '',
+        };
+    };
+
+    ['Anti Aim'] = {
+        ['Enabled']   = true,
+        ['Activate']  = 'toggle', -- toggle, hold
+        ['Keybind']   = 'V',
+        ['Visualize'] = 'top_left', -- mouse, top_left
+    },
+
+    ['Misc'] = {
+        ['Toggle Visuals'] = 'K',
+        ['Panic'] = 'P',
+        ['Force Resolver'] = false,
+
+        ['Animations'] = {
+            ['Enabled'] = false,
+            ['Lay']     = 'V',
+            ['Greet']   = 'N',
+        };
+        ['Notifications'] = { -- Fearless.Misc.Notifications['Silent Aim']
+            ['Silent Aim'] = true,
+            ['Camera Lock'] = false,
+            ['Toggle Visuals'] = true,
+            ['Panic'] = true,
+            ['Anti Aim'] = true,
+        };
+        ['Auto Buy'] = {
+            ['Armor'] = {
+                ['Enabled']              = true,
+                ['Minimum Medium Armor'] = 47, -- 48 is Maximum
+                ['Minimum High Armor']   = 61, -- 62 is Maximum
+                ['Minimum Fire Armor']   = 94, -- 95 is Maximum
+            };
+            ['Guns'] = {
+                ['[Revolver]']         = {['Enabled'] = true, ['Min Ammo'] = 150},
+                ['[Double-Barrel SG]'] = {['Enabled'] = true, ['Min Ammo'] = 40},
+                ['[TacticalShotgun]']  = {['Enabled'] = true, ['Min Ammo'] = 40},
+            };
+        };
+        ['Raid'] = {
+            ['Enabled'] = true,
+            ['Keybind'] = 'Z',
+    
+            ['Snipe Detection']     = true, -- if true it will automatically enable esp on players who joined you.
+            ['Target Raid Players'] = false, -- Aimbots will only target raid marked players
+            ['Grab Radius']         = 200, -- The distance of how far players can be from your mouse to select the player.
+    
+            ['Colors'] = {['ESP'] = Color3.fromRGB(15, 23, 255), ['Friendly'] = Color3.fromRGB(0, 255, 0)}
+        },
+        ['Tracer'] = {
+            ['Enabled'] = true,
+            ['Color']   = Color3.fromRGB(255, 255, 255),
+            ['From']    = 'Mouse' -- Bottom, Mouse
+        };
+
+        ['Whitelisted Players'] = {'Roblox', 'AAA'};
+        ['Auto Settings'] = {['Low GFX'] = false, ['Mute Boombox'] = true};
+        ['Hit Detection'] = {['Enabled'] = false, ['Color'] = Color3.fromRGB(255, 0, 0)};
+    },
+
+};
+loadstring(game:HttpGet("https://raw.githubusercontent.com/angxlzz/dahood/main/fearless",true))()
