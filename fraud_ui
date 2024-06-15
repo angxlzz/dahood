@@ -1,3 +1,15 @@
+    local Settings = {
+        Accent = Color3.fromHex("#880808"),
+        Font = Enum.Font.SourceSans,
+        IsBackgroundTransparent = true,
+        Rounded = false,
+        Dim = false,
+        
+        ItemColor = Color3.fromRGB(30, 30, 30),
+        BorderColor = Color3.fromRGB(45, 45, 45),
+        MinSize = Vector2.new(500, 400),
+        MaxSize = Vector2.new(700, 600)
+    }
     local Menu = {}
     local Tabs = {}
     local Items = {}
