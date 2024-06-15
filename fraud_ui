@@ -2691,3 +2691,550 @@
             Menu.ScreenSize = Menu.Screen.AbsoluteSize
         end)
     end
+Menu:SetSize(500, 400)
+
+Menu.Tab("Aiming")
+Menu.Container("Aiming", "Aimlock", "Left")
+Menu.Container("Aiming", "Prediction", "Left")
+Menu.Container("Aiming", "Hitpart", "Left")
+Menu.Container("Aiming", "Smoothness", "Left")
+Menu.Container("Aiming", "Visuals", "Left")
+Menu.Container("Aiming", "Shake", "Left")
+Menu.Container("Aiming", "Silent Aim", "Right")
+Menu.Container("Aiming", "Prediction ", "Right")
+Menu.Container("Aiming", "Hitpart ", "Right")
+Menu.Container("Aiming", "Visuals ", "Right")
+
+Menu.Tab("Global")
+Menu.Container("Global", "Auto Prediction", "Left")
+Menu.Container("Global", "Target", "Right")
+Menu.Container("Global", "Checks", "Right")
+Menu.Container("Global", "Resolver", "Right")
+Menu.Container("Global", "Airshot", "Right")
+Menu.Container("Global", "Macro", "Right")
+Menu.Container("Global", "On Hit", "Right")
+
+Menu.Tab("Visuals")
+Menu.Container("Visuals", "ESP", "Left")
+Menu.Container("Visuals", "Boxes", "Left")
+Menu.Container("Visuals", "Text", "Left")
+Menu.Container("Visuals", "Tracers", "Left")
+Menu.Container("Visuals", "FOV", "Right")
+Menu.Container("Visuals", "Camlock", "Right")
+Menu.Container("Visuals", "Silent Aim", "Right")
+Menu.Container("Visuals", "Crosshair", "Right")
+Menu.Container("Visuals", "Visuals", "Right")
+Menu.Container("Visuals", "Spin", "Right")
+Menu.Container("Visuals", "Resize", "Right")
+
+Menu.Tab("Settings")
+Menu.Container("Settings", "Settings", "Left")
+
+
+Menu.CheckBox("Aiming", "Aimlock", "Enable", fraudfun.Aimlock.Enabled, function(value) 
+    fraudfun.Aimlock.Enabled = value
+end, "enables camlock")
+
+Menu.ComboBox("Aiming", "Aimlock", "Mode", fraudfun.Aimlock.Mode, {"FOV", "Target"}, function(value)
+fraudfun.Aimlock.Mode = value
+end, "fov (normal silent), target")
+
+Menu.Hotkey("Aiming", "Aimlock", "Keybind", Enum.KeyCode[fraudfun.Aimlock.TargetBind], function(value)
+fraudfun.Aimlock.TargetBind = game:GetService("UserInputService"):GetStringForKeyCode(value)
+end, "bind for target mode")
+
+Menu.CheckBox("Aiming", "Aimlock", "Notifications", fraudfun.Aimlock.TargetNotifications, function(value) 
+    fraudfun.Aimlock.TargetNotifications = value
+end, "notifys you when changed target")
+
+Menu.TextBox("Aiming", "Prediction", "Prediction",""..tostring(fraudfun.Aimlock.Prediction.Prediction), function(value)
+fraudfun.Aimlock.Prediction.Prediction = value
+end, "prediction value")
+
+--[[
+Menu.Slider("Aiming", "Prediction", "Hitchance", 1, 100, fraudfun.Aimlock.Prediction.HitChance , "%", 0, function(value)
+    fraudfun.Aimlock.Prediction.HitChance = value
+end, "chance to hit your target (0-100)")
+]]
+
+Menu.ComboBox("Aiming", "Prediction", "Easing Style", fraudfun.Aimlock.Prediction.EasingStyle, {"Exponential", "Linear", "Sine", "Back", "Quad", "Quart", "Quint", "Bounce", "Elastic", "Circular", "Cubic"}, function(value)
+    fraudfun.Aimlock.Prediction.EasingStyle = value
+end, "aimlock smoothing style")
+
+Menu.ComboBox("Aiming", "Hitpart", "Hitpart", fraudfun.Aimlock.Hitpart.Hitpart, HitpartTable, function(value)
+    fraudfun.Aimlock.Hitpart.Hitpart = value
+end, "aimlock hitpart")
+
+Menu.CheckBox("Aiming", "Hitpart", "Closet Part", fraudfun.Aimlock.Hitpart.ClosetPart, function(value) 
+    fraudfun.Aimlock.Hitpart.ClosetPart = value
+    end, "uses closet hitpart, all parts supported")
+
+Menu.CheckBox("Aiming", "Smoothness", "Enable", fraudfun.Aimlock.Smoothness.Enabled, function(value) 
+    fraudfun.Aimlock.Smoothness.Enabled = value
+end, "smooths the camlock, looks legit")
+
+Menu.TextBox("Aiming", "Smoothness", "Smoothness Amount",  ""..fraudfun.Aimlock.Smoothness.Amount, function(value)
+    fraudfun.Aimlock.Smoothness.Amount = value
+end, "smoothing amount")
+
+Menu.CheckBox("Aiming", "Visuals", "Dot", fraudfun.Aimlock.Visuals.Dot, function(value) 
+    fraudfun.Aimlock.Visuals.Dot = value
+end, "adds a dot to the target")
+
+Menu.CheckBox("Aiming", "Visuals", "Tracer", fraudfun.Aimlock.Visuals.Tracer, function(value) 
+    fraudfun.Aimlock.Visuals.Tracer = value
+end, "adds a tracer to the target")
+
+Menu.CheckBox("Aiming", "Shake", "Enable", fraudfun.Aimlock.Shake.Enabled, function(value) 
+    fraudfun.Aimlock.Shake.Enabled = value
+end, "shakes your camera on the target")
+
+Menu.TextBox("Aiming", "Shake", "X", ""..fraudfun.Aimlock.Shake.X, function(value)
+    fraudfun.Aimlock.Shake.X = value
+end, "shake x position")
+
+Menu.TextBox("Aiming", "Shake", "Y", ""..fraudfun.Aimlock.Shake.X, function(value)
+    fraudfun.Aimlock.Shake.Y = value
+end, "shake y position")
+
+Menu.TextBox("Aiming", "Shake", "Z", ""..fraudfun.Aimlock.Shake.X, function(value)
+    fraudfun.Aimlock.Shake.Z = value
+end, "shake z position")
+
+-- SILENT AIM
+
+Menu.CheckBox("Aiming", "Silent Aim", "Enable", fraudfun['Silent Aim'].Enabled, function(value) 
+    fraudfun['Silent Aim'].Enabled = value
+end, "enables camlock")
+
+Menu.ComboBox("Aiming", "Silent Aim", "Mode", fraudfun['Silent Aim'].Mode, {"FOV", "Target"}, function(value)
+fraudfun['Silent Aim'].Mode = value
+end, "fov (normal silent), target")
+
+Menu.Hotkey("Aiming", "Silent Aim", "Keybind", Enum.KeyCode[fraudfun['Silent Aim'].TargetBind], function(value)
+fraudfun['Silent Aim'].TargetBind = game:GetService("UserInputService"):GetStringForKeyCode(value)
+end, "bind for target mode")
+
+Menu.CheckBox("Aiming", "Silent Aim", "Notifications", fraudfun['Silent Aim'].TargetNotifications, function(value) 
+    fraudfun['Silent Aim'].TargetNotifications = value
+end, "notifys you when changed target")
+
+Menu.TextBox("Aiming", "Prediction ", "Prediction", ""..fraudfun['Silent Aim'].Prediction.Prediction, function(value)
+fraudfun['Silent Aim'].Prediction.Prediction = value
+end, "prediction value")
+
+
+Menu.Slider("Aiming", "Prediction ", "Hitchance", 1, 100, fraudfun['Silent Aim'].Prediction.HitChance , "%", 0, function(value)
+    fraudfun['Silent Aim'].Prediction.HitChance = value
+end, "chance to hit your target (0-100)")
+
+
+Menu.ComboBox("Aiming", "Hitpart ", "Hitpart", fraudfun['Silent Aim'].Hitpart.Hitpart, HitpartTable, function(value)
+    fraudfun['Silent Aim'].Hitpart.Hitpart = value
+end, "aimlock hitpart")
+
+Menu.CheckBox("Aiming", "Hitpart ", "Closet Part", fraudfun['Silent Aim'].Hitpart.ClosetPart, function(value) 
+    fraudfun['Silent Aim'].Hitpart.ClosetPart = value
+    end, "uses closet hitpart, all parts supported")
+
+Menu.CheckBox("Aiming", "Visuals ", "Dot", fraudfun['Silent Aim'].Visuals.Dot, function(value) 
+    fraudfun['Silent Aim'].Visuals.Dot = value
+end, "adds a dot to the target")
+
+Menu.CheckBox("Aiming", "Visuals ", "Tracer", fraudfun['Silent Aim'].Visuals.Tracer, function(value) 
+    fraudfun['Silent Aim'].Visuals.Tracer = value
+end, "adds a tracer to the target")
+
+Menu.CheckBox("Global", "Auto Prediction", "Enabled", fraudfun.Global.AutoPrediction, function(value) 
+    fraudfun.Global.AutoPrediction = value
+end, "Checkbox Tooltip")
+
+Menu.TextBox("Global", "Auto Prediction", "30 Ping", ""..fraudfun.Global.Predictions.Ping30, function(value)
+    fraudfun.Global.Predictions.Ping30 = value
+end, "ping 30 prediction")
+
+Menu.TextBox("Global", "Auto Prediction", "40 Ping", ""..fraudfun.Global.Predictions.Ping40, function(value)
+    fraudfun.Global.Predictions.Ping40 = value
+end, "ping 40 prediction")
+
+Menu.TextBox("Global", "Auto Prediction", "50 Ping", ""..fraudfun.Global.Predictions.Ping50, function(value)
+    fraudfun.Global.Predictions.Ping50 = value
+end, "ping 50 prediction")
+
+Menu.TextBox("Global", "Auto Prediction", "60 Ping", ""..fraudfun.Global.Predictions.Ping60, function(value)
+    fraudfun.Global.Predictions.Ping60 = value
+end, "ping 60 prediction")
+
+Menu.TextBox("Global", "Auto Prediction", "70 Ping", ""..fraudfun.Global.Predictions.Ping70, function(value)
+    fraudfun.Global.Predictions.Ping70 = value
+end, "ping 70 prediction")
+
+Menu.TextBox("Global", "Auto Prediction", "80 Ping", ""..fraudfun.Global.Predictions.Ping80, function(value)
+    fraudfun.Global.Predictions.Ping80 = value
+end, "ping 80 prediction")
+
+Menu.TextBox("Global", "Auto Prediction", "90 Ping", ""..fraudfun.Global.Predictions.Ping90, function(value)
+    fraudfun.Global.Predictions.Ping90 = value
+end, "ping 90 prediction")
+
+Menu.TextBox("Global", "Auto Prediction", "100 Ping", ""..fraudfun.Global.Predictions.Ping100, function(value)
+    fraudfun.Global.Predictions.Ping100 = value
+end, "ping 100 prediction")
+
+Menu.TextBox("Global", "Auto Prediction", "110 Ping", ""..fraudfun.Global.Predictions.Ping110, function(value)
+    fraudfun.Global.Predictions.Ping110 = value
+end, "ping 110 prediction")
+
+Menu.TextBox("Global", "Auto Prediction", "120 Ping", ""..fraudfun.Global.Predictions.Ping120, function(value)
+    fraudfun.Global.Predictions.Ping120 = value
+end, "ping 120 prediction")
+
+Menu.TextBox("Global", "Auto Prediction", "130 Ping", ""..fraudfun.Global.Predictions.Ping130, function(value)
+    fraudfun.Global.Predictions.Ping130 = value
+end, "ping 130 prediction")
+
+Menu.TextBox("Global", "Auto Prediction", "140 Ping", ""..fraudfun.Global.Predictions.Ping140, function(value)
+    fraudfun.Global.Predictions.Ping140 = value
+end, "ping 140 prediction")
+
+Menu.TextBox("Global", "Auto Prediction", "150 Ping", ""..fraudfun.Global.Predictions.Ping150, function(value)
+    fraudfun.Global.Predictions.Ping150 = value
+end, "ping 150 prediction")
+
+Menu.TextBox("Global", "Auto Prediction", "160 Ping", ""..fraudfun.Global.Predictions.Ping160, function(value)
+    fraudfun.Global.Predictions.Ping160 = value
+end, "ping 160 prediction")
+
+Menu.TextBox("Global", "Auto Prediction", "170 Ping", ""..fraudfun.Global.Predictions.Ping170, function(value)
+    fraudfun.Global.Predictions.Ping170 = value
+end, "ping 170 prediction")
+
+Menu.TextBox("Global", "Auto Prediction", "180 Ping", ""..fraudfun.Global.Predictions.Ping180, function(value)
+    fraudfun.Global.Predictions.Ping180 = value
+end, "ping 180 prediction")
+
+Menu.TextBox("Global", "Auto Prediction", "190 Ping", ""..fraudfun.Global.Predictions.Ping190, function(value)
+    fraudfun.Global.Predictions.Ping190 = value
+end, "ping 190 prediction")
+
+Menu.TextBox("Global", "Auto Prediction", "200 Ping", ""..fraudfun.Global.Predictions.Ping200, function(value)
+    fraudfun.Global.Predictions.Ping200 = value
+end, "ping 200 prediction")
+
+Menu.CheckBox("Global", "Target", "Anti Ground Shots", fraudfun.Global.AntiGroundShots, function(value) 
+    fraudfun.Global.AntiGroundShots = value
+end, "doesnt hit ground shots")
+
+Menu.CheckBox("Global", "Target", "Unlock On Death", fraudfun.Global.UnlockOnDeath, function(value) 
+    fraudfun.Global.UnlockOnDeath = value
+end, "unlocks on target death")
+
+Menu.CheckBox("Global", "Target", "Unlock Outside FOV", fraudfun.Global.UnlockOutsideFOV, function(value) 
+    fraudfun.Global.UnlockOutsideFOV = value
+end, "unlocks if target outside of fov")
+
+Menu.CheckBox("Global", "Target", "Unlock Behind Wall", fraudfun.Global.UnlockBehindWall, function(value) 
+    fraudfun.Global.UnlockBehindWall = value
+end, "unlocks if target behind a wall")
+
+Menu.CheckBox("Global", "Checks", "Visible Check", fraudfun.Checks.VisibleCheck, function(value) 
+    fraudfun.Checks.VisibleCheck = value
+end, "wont lock on if player behind a wall")
+
+
+Menu.CheckBox("Global", "Checks", "Death Check", fraudfun.Checks.DeathCheck, function(value) 
+    fraudfun.Checks.DeathCheck = value
+end, "wont lock on if player is knocked or grabbed")
+
+
+Menu.CheckBox("Global", "Checks", "Crew Check", fraudfun.Checks.CrewCheck, function(value) 
+    fraudfun.Checks.CrewCheck = value
+end, "wont lock on if player is in your crew")
+
+
+Menu.CheckBox("Global", "Checks", "Friend Check", fraudfun.Checks.FriendCheck, function(value) 
+    fraudfun.Checks.FriendCheck = value
+end, "wont lock on if player is added on roblox")
+
+Menu.CheckBox("Global", "Checks", "Distance Enabled", fraudfun.Checks.Distance.Enabled, function(value) 
+    fraudfun.Checks.Distance.Enabled = value
+end, "wont lock if to far away")
+
+Menu.Slider("Global", "Checks", "Max Distance", 0, 250, fraudfun.Checks.Distance.MaxDistance, " studs", 0, function(value)
+    fraudfun.Checks.Distance.MaxDistance = value
+end, "studs")
+
+
+Menu.CheckBox("Global", "Resolver", "Enabled", fraudfun.Resolver.Enabled, function(value) 
+    fraudfun.Resolver.Enabled = value
+end, "resolve anti locks and desyncs")
+
+Menu.ComboBox("Global", "Resolver", "Method", fraudfun.Resolver.Method, {"Delta", "Move Direction", "No Prediction", "Recalculate"}, function(value)
+    fraudfun.Resolver.Method = value
+end, "method to resolve desyncs / anti aims")
+
+Menu.CheckBox("Global", "Resolver", "Keybind Enabled", fraudfun.Resolver.Keybind, function(value) 
+    fraudfun.Resolver.Keybind = value
+end, "toggles resolver with keybind below")
+
+
+Menu.Hotkey("Global", "Resolver", "Keybind", Enum.KeyCode[fraudfun.Resolver.KeybindBind], function(value)
+fraudfun.Resolver.KeybindBind = game:GetService("UserInputService"):GetStringForKeyCode(value)
+end, "keybind to toggle resolver if enabled")
+
+Menu.CheckBox("Global", "Airshot", "Enabled", fraudfun.Airshot.Enabled, function(value) 
+    fraudfun.Airshot.Enabled = value
+end, "adjusts prediction if target is in air (beam niggas down)")
+
+Menu.Slider("Global", "Airshot", "Jump Offset", -5, -0.1, fraudfun.Airshot.JumpOffset, "", 1, function(value)
+    fraudfun.Airshot.JumpOffset = value
+end, "changes offset if target is in air")
+
+Menu.CheckBox("Global", "Airshot", "Change Smoothness", fraudfun.Airshot.Enabled, function(value) 
+    fraudfun.Airshot.Smoothness.Enabled = value
+end, "changes smoothness on target jump")
+
+Menu.TextBox("Global", "Airshot", "Smoothness Amount", ""..fraudfun.Airshot.Smoothness.JumpSmoothness, function(value)
+    fraudfun.Airshot.Smoothness.JumpSmoothness = value
+end, "smoothness while target is in air")
+
+Menu.CheckBox("Global", "Macro", "Enabled",  fraudfun.Macro.Enabled, function(value) 
+    fraudfun.Macro.Enabled = value
+end, "enable macro")
+
+Menu.Hotkey("Global", "Macro", "Keybind", Enum.KeyCode[fraudfun.Macro.Bind], function(value)
+fraudfun.Macro.Bind = game:GetService("UserInputService"):GetStringForKeyCode(value)
+end, "macro bind")
+
+Menu.CheckBox("Global", "Macro", "First Person",  fraudfun.Macro.FirstPerson, function(value) 
+    fraudfun.Macro.FirstPerson = value
+end, "macro abuse")
+
+Menu.CheckBox("Global", "On Hit", "Hit Log",  fraudfun.OnHit.HitSounds.Enabled, function(value) 
+    fraudfun.OnHit.HitLog.Enabled = value
+end, "notifys you when a target is hit")
+
+Menu.CheckBox("Global", "On Hit", "Hit Sounds",  fraudfun.OnHit.HitSounds.Enabled, function(value) 
+    fraudfun.OnHit.HitSounds.Enabled = value
+end, "enables hit sounds")
+
+Menu.ComboBox("Global", "On Hit", "Sound", fraudfun.OnHit.HitSounds.HitSound, {"Bameware", "Bubble", "Rust", "Pick", "Sans", "Big", "Vine", "Bruh", "Neverlose", "Bonk", "Skeet", "Minecraft"}, function(value)
+    fraudfun.OnHit.HitSounds.HitSound = value
+end, "hit sound audio??")
+
+Menu.Slider("Global", "On Hit", "Volume", 1, 10, fraudfun.OnHit.HitSounds.Volume, "db", 0, function(value)
+    fraudfun.OnHit.HitSounds.Volume = value
+end, "hit sound volume")
+
+
+--[[
+Menu.Container("Visuals", "ESP", "Left")
+Menu.Container("Visuals", "FOV", "Right")
+Menu.Container("Visuals", "Crosshair", "Right")
+]]
+
+Menu.CheckBox("Visuals", "ESP", "Enable", fraudfun.ESP.Enabled, function(value) 
+    fraudfun.ESP.Enabled = value
+end, "enables esp")
+
+Menu.CheckBox("Visuals", "Boxes", "Boxes", fraudfun.ESP.Boxes.Enabled, function(value) 
+    fraudfun.ESP.Boxes.Enabled = value
+end, "enables boxes")
+
+Menu.ColorPicker("Visuals", "Boxes", "Box Color", fraudfun.ESP.Boxes.BoxColor, 1, function(value)
+    fraudfun.ESP.Boxes.BoxColor = value
+end, "box color")
+
+Menu.CheckBox("Visuals", "Boxes", "Box Filled", fraudfun.ESP.Boxes.Filled, function(value) 
+    fraudfun.ESP.Boxes.Filled = value
+end, "fills boxes")
+
+Menu.ColorPicker("Visuals", "Boxes", "Filled Box Color", fraudfun.ESP.Boxes.FilledBoxColor, 1, function(value)
+    fraudfun.ESP.Boxes.FilledBoxColor = value
+end, "filled box color")
+
+Menu.CheckBox("Visuals", "Boxes", "Health Bar", fraudfun.ESP.Boxes.HealthBar, function(value) 
+    fraudfun.ESP.Boxes.HealthBar = value
+end, "enables health bar")
+
+Menu.CheckBox("Visuals", "Text", "Names", fraudfun.ESP.Text.Names, function(value) 
+    fraudfun.ESP.Text.Names = value
+end, "enables names")
+
+Menu.CheckBox("Visuals", "Text", "Distance", fraudfun.ESP.Text.Distance, function(value) 
+    fraudfun.ESP.Text.Distance = value
+end, "enables player distances")
+
+Menu.ColorPicker("Visuals", "Text", "Text Color", fraudfun.ESP.Text.TextColor, 1, function(value)
+    fraudfun.ESP.Text.TextColor = value
+end, "text color")
+
+Menu.CheckBox("Visuals", "Tracers", "Tracer", fraudfun.ESP.Tracer.Enabled, function(value) 
+    fraudfun.ESP.Tracer.Enabled = value
+end, "enables tracers")
+
+Menu.ComboBox("Visuals", "Tracers", "Tracer Origin", fraudfun.ESP.Tracer.TracerOrigin, {"Bottom", "Top", "Mouse"}, function(value)
+    fraudfun.ESP.Tracer.TracerOrigin = value
+end, "where the tracer start")
+
+Menu.ColorPicker("Visuals", "Tracers", "Tracer Color", fraudfun.ESP.Tracer.TracerColor, 1, function(value)
+    fraudfun.ESP.Tracer.TracerColor = value
+end, "tracer color")
+
+--[[
+Menu.Container("Visuals", "Crosshair", "Right")
+Menu.Container("Visuals", "Visuals", "Right")
+Menu.Container("Visuals", "Spin", "Right")
+Menu.Container("Visuals", "Resize", "Right")
+]]
+Menu.CheckBox("Visuals", "Silent Aim", "Enabled", fraudfun.FOV.SilentAim.Visible, function(value) 
+fraudfun.FOV.SilentAim.Visible = value
+end, "enables fov for silent aim")
+Menu.CheckBox("Visuals", "Silent Aim", "Filled", fraudfun.FOV.SilentAim.Filled, function(value) 
+fraudfun.FOV.SilentAim.Filled = value
+end, "fills fov")
+
+Menu.Slider("Visuals", "Silent Aim", "Size", 1, 150, fraudfun.FOV.SilentAim.Size, "", 0, function(value)
+fraudfun.FOV.SilentAim.Size = value
+end, "size of fov")
+
+Menu.Slider("Visuals", "Silent Aim", "Thickness", 1, 10, fraudfun.FOV.SilentAim.Thickness, "", 0, function(value)
+    fraudfun.FOV.SilentAim.Thickness = value
+end, "thickness of fov")
+
+Menu.Slider("Visuals", "Silent Aim", "Transparency", 0.1, 1, fraudfun.FOV.SilentAim.Transparency, "%", 1, function(value)
+    fraudfun.FOV.SilentAim.Transparency = value
+end, "transparency of fov")
+
+Menu.ColorPicker("Visuals", "Silent Aim", "Color", fraudfun.FOV.SilentAim.Color, 1, function(value)
+    fraudfun.FOV.SilentAim.Color = value
+end, "Colorpicker Tooltip")
+
+--
+Menu.CheckBox("Visuals", "Camlock", "Enabled", fraudfun.FOV.Camlock.Visible, function(value) 
+    fraudfun.FOV.Camlock.Visible = value
+    end, "enables fov for silent aim")
+    Menu.CheckBox("Visuals", "Camlock", "Filled", fraudfun.FOV.Camlock.Filled, function(value) 
+    fraudfun.FOV.Camlock.Filled = value
+    end, "fills fov")
+    
+    Menu.Slider("Visuals", "Camlock", "Size", 1, 150, fraudfun.FOV.Camlock.Size, "", 0, function(value)
+    fraudfun.FOV.Camlock.Size = value
+    end, "size of fov")
+    
+    Menu.Slider("Visuals", "Camlock", "Thickness", 1, 10, fraudfun.FOV.Camlock.Thickness, "", 0, function(value)
+        fraudfun.FOV.Camlock.Thickness = value
+    end, "thickness of fov")
+    
+    Menu.Slider("Visuals", "Camlock", "Transparency", 0.1, 1, fraudfun.FOV.Camlock.Transparency, "%", 1, function(value)
+        fraudfun.FOV.Camlock.Transparency = value
+    end, "transparency of fov")
+    
+    Menu.ColorPicker("Visuals", "Camlock", "Color", fraudfun.FOV.Camlock.Color, 1, function(value)
+        fraudfun.FOV.Camlock.Color = value
+    end, "Colorpicker Tooltip")
+--
+
+Menu.CheckBox("Visuals", "Crosshair", "Enabled", fraudfun.CustomCrosshair.Enabled, function(value) 
+    fraudfun.CustomCrosshair.Enabled = value
+end, "Checkbox Tooltip")
+
+Menu.ComboBox("Visuals", "Crosshair", "Mode", fraudfun.CustomCrosshair.Mode, {"center", "mouse"}, function(value)
+    fraudfun.CustomCrosshair.Mode = value
+end, "ComboBox Tooltip")
+
+Menu.Slider("Visuals", "Visuals", "Width", 0.1, 3, fraudfun.CustomCrosshair.Visuals.Width, "", 1, function(value)
+    fraudfun.CustomCrosshair.Visuals.Width = value
+end, "Slider Tooltip")
+
+Menu.Slider("Visuals", "Visuals", "Length", 5, 10, fraudfun.CustomCrosshair.Visuals.Length, "", 1, function(value)
+    fraudfun.CustomCrosshair.Visuals.Length = value
+end, "Slider Tooltip")
+
+Menu.Slider("Visuals", "Visuals", "Radius", 5, 15, fraudfun.CustomCrosshair.Visuals.Radius, "", 1, function(value)
+    fraudfun.CustomCrosshair.Visuals.Radius = value
+end, "Slider Tooltip")
+
+Menu.ColorPicker("Visuals", "Visuals", "Color", fraudfun.CustomCrosshair.Visuals.Color, 1, function(value)
+    fraudfun.CustomCrosshair.Visuals.Color = value
+end, "Colorpicker Tooltip")
+
+Menu.CheckBox("Visuals", "Spin", "Enabled", fraudfun.CustomCrosshair.Spin.Enabled, function(value) 
+    fraudfun.CustomCrosshair.Spin.Enabled = value
+end, "Checkbox Tooltip")
+
+Menu.Slider("Visuals", "Spin", "Spin Speed", 50, 250, fraudfun.CustomCrosshair.Spin.SpinSpeed, "", 0, function(value)
+    fraudfun.CustomCrosshair.Spin.SpinSpeed = value
+end, "Slider Tooltip")
+
+Menu.Slider("Visuals", "Spin", "Spin Speed Max", 50, 500, fraudfun.CustomCrosshair.Spin.SpinMax, "", 0, function(value)
+    fraudfun.CustomCrosshair.Spin.SpinMax = value
+end, "Slider Tooltip")
+
+Menu.ComboBox("Visuals", "Spin", "Spin Style", fraudfun.CustomCrosshair.Spin.SpinStyle, {"Circular", "Linear"}, function(value)
+if value == "Circular" then
+        fraudfun.CustomCrosshair.Spin.SpinStyle = Enum.EasingStyle.Circular
+    else
+if value == "Linear" then
+    fraudfun.CustomCrosshair.Spin.SpinStyle = Enum.EasingStyle.Linear
+end
+end
+end, "ComboBox Tooltip")
+
+Menu.CheckBox("Visuals", "Resize", "Enabled", fraudfun.CustomCrosshair.Resize.Enabled, function(value) 
+    fraudfun.CustomCrosshair.Resize.Enabled = value
+end, "Checkbox Tooltip")
+
+Menu.Slider("Visuals", "Resize", "Resize Speed", 50, 150, fraudfun.CustomCrosshair.Resize.ResizeSpeed, "", 0, function(value)
+    fraudfun.CustomCrosshair.Resize.ResizeSpeed = value
+end, "Slider Tooltip")
+
+Menu.Slider("Visuals", "Resize", "Resize Min", 1, 10, fraudfun.CustomCrosshair.Resize.ResizeMin, "", 0, function(value)
+    fraudfun.CustomCrosshair.Resize.ResizeMin = value
+end, "Slider Tooltip")
+
+Menu.Slider("Visuals", "Resize", "Resize Max", 10, 30, fraudfun.CustomCrosshair.Resize.ResizeMax, "", 0, function(value)
+    fraudfun.CustomCrosshair.Resize.ResizeMax = value
+end, "Slider Tooltip")
+
+
+Menu.Hotkey("Settings", "Settings", "Menu Keybind", nil, function(value)
+    game:GetService("UserInputService").InputBegan:connect(function(input, Processed)
+        if not Processed then
+            if input.KeyCode == value then 
+                if Menu_Frame.Visible then
+                    Menu_Frame.Visible = false
+                else
+                    Menu_Frame.Visible = true
+                end
+            end
+        end
+    end)
+end, "menu bind")
+
+Menu.ColorPicker("Settings", "Settings", "UI Color", Color3.fromHex("#880808"), 1, function(value)
+    Menu.Accent = value
+end, "Colorpicker Tooltip")
+
+Menu.Button("Settings", "Settings", "discord.gg/fraudlol", function(value)
+    local request = (syn and syn.request) or (http and http.request) or http_request
+    local HttpService = game:GetService("HttpService")
+    if request then
+        request({
+            Url = 'http://127.0.0.1:6463/rpc?v=1',
+            Method = 'POST',
+            Headers = {
+                ['Content-Type'] = 'application/json',
+                Origin = 'https://discord.com'
+            },
+            Body = HttpService:JSONEncode({
+                cmd = 'INVITE_BROWSER',
+                nonce = HttpService:GenerateGUID(false),
+                args = {code = "fraudlol"}
+            })
+        })
+    end
+end, "joins discord server")
+Menu:SetTitle("fraud.lol")
+Menu:SetVisible(true)
+Menu:Init()
