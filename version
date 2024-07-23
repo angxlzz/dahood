@@ -1,11 +1,11 @@
 if game.PlaceId == 2788229376 then
-    if game.PlaceVersion > 1365 then
+    if game.PlaceVersion > 1366 then
         game.Players.LocalPlayer:Kick("Da Hood Has updated and Fraud is not supported of the current version. Please be patient while we update.")
     end
 end
 
 if game.PlaceId == 16033173781 then
-    if game.PlaceVersion > 72 then
+    if game.PlaceVersion > 73 then
         game.Players.LocalPlayer:Kick("Da Hood Has updated and Fraud is not supported of the current version. Please be patient while we update.")
     end
 end
