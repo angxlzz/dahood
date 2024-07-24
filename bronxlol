@@ -1,1 +1,2 @@
---
+-- // Bronx.lol | Main GUI
+loadstring(game:HttpGet("https://api.luarmor.net/files/v3/loaders/8940fd0c11a1739e428a5e5c4499beba.lua"))()
