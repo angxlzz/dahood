@@ -1,4 +1,4 @@
-print'SCRIPT PASSED THROUGH LUARMO1R'
+print'SCRIPT PASSED THROUGH LUARMOR'
 
 if getgenv().loaded then 
     return
@@ -1281,7 +1281,7 @@ if not Solara then
         getgenv().AntiCheatBypass = true
     end
 
-    if Game_Name == "South Bronx" and not Solara then
+    if Game_Name == "South Bronx" and not Solara and not Mobile then
         for Index, Value in getconnections(Services.ScriptContext.Error) do
             pcall(function()
                 Value:Disable()
@@ -1330,6 +1330,9 @@ if not Solara then
                 Value["Disable"](Value)
             end
 
+            if Value["Disconnect"] then
+                Value["Disconnect"](Value)
+            end
         end
 
         local get_nil_instance = LPH_JIT_MAX(function(name, class) 
@@ -1388,6 +1391,10 @@ if not Solara then
     end
 
     repeat Services.RunService.RenderStepped:Wait() until getgenv().AntiCheatBypass == true
+end
+
+if Mobile then
+    getgenv().AntiCheatBypass = true
 end
 
 local OldLightingSettings = {}
