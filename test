@@ -1,4 +1,4 @@
-print'SCRIPT PASSED THROUGH L3232321321UARMOR'
+print'SCRIPT PASSED THROUGH mble'
 
 if getgenv().loaded then 
     return
@@ -88,7 +88,7 @@ local Services = setmetatable({}, {
     end)
 })
 
-if Game_Name == "South Bronx" and not Solara then
+if Game_Name == "South Bronx" and not Solara and not Mobile then
 
     task.spawn( function() 
         local _getallthreads = LPH_JIT_MAX(function()
@@ -173,7 +173,7 @@ if Game_Name == "South Bronx" and not Solara then
             until Anti_Cheat_Script~=nil
         end
 
-        --[[
+        
         local AntiCheat_Function, Function_Index = Filter_Table(getsenv(Anti_Cheat_Script), "HPv")
         if not AntiCheat_Function then
             repeat task.wait()
@@ -181,7 +181,7 @@ if Game_Name == "South Bronx" and not Solara then
             AntiCheat_Function, Function_Index = Filter_Table(getsenv(Anti_Cheat_Script), "HPv")
 
             until AntiCheat_Function~=nil
-        end]]
+        end
 
         local Killable_Threads = {[1] = true, [3] = true, [4] = true}
 
