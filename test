@@ -1,4 +1,4 @@
-print'SCRIPT PASSED THROUGH L3232321321UARMOR'
+print'SCRIPT PASSED THROUGH MOBILE LRMR'
 
 if getgenv().loaded then 
     return
@@ -189,7 +189,6 @@ if Game_Name == "South Bronx" and not Solara then
             return AntiCheat_Function(Random_Message)
         end)
 
-        --[[
         Services.RunService.RenderStepped:Connect(LPH_JIT_MAX(function()
             AntiCheat_Threads = Get_AntiCheat_Threads()
 
@@ -205,7 +204,6 @@ if Game_Name == "South Bronx" and not Solara then
 
             XVNP_L()
         end))
-        ]]
     end)
     task.wait(5)
 end
@@ -1283,17 +1281,22 @@ if not Solara then
         getgenv().AntiCheatBypass = true
     end
 
-    if Game_Name == "South Bronx" and not Solara then
-        for Index, Value in getconnections(Services.ScriptContext.Error) do
-            pcall(function()
-                Value:Disable()
-            end)
-
-            pcall(function()
-                Value:Disconnect()
-            end)
+if Game_Name == "South Bronx" and not Solara then
+    local ok, connections = pcall(getconnections, Services.ScriptContext.Error)
+    if ok and type(connections) == "table" then
+        for _, conn in ipairs(connections) do
+            if typeof(conn) == "table" and conn.Disable and conn.Disconnect then
+                pcall(function()
+                    if not isexecutorclosure or not isexecutorclosure(conn.Function) then
+                        conn:Disable()
+                        conn:Disconnect()
+                    end
+                end)
+            end
         end
-        --[[
+    end
+end
+
         for Index, Value in Services.ReplicatedStorage.Workspace.Homeless:GetChildren() do
             Value.Parent = Services.Workspace.HomelessPeople
         end
@@ -1314,7 +1317,7 @@ if not Solara then
                 task.wait()
                 Value.Parent = Services.Workspace.NPCs
             end))
-        end]]
+        end
 
         local task_wait_hook; task_wait_hook = hookfunction(task.wait, LPH_NO_UPVALUES(function(...)
             local args = {...}
@@ -1361,11 +1364,9 @@ if not Solara then
 
         local gun_module = getsenv(get_nil_instance("Gun", "ModuleScript"))
 
-        --[[
         local old; old = hookfunction(gun_module.x, LPH_NO_UPVALUES(function()
             return nil
         end))
-            ]]
 
         --[[local Old; Old = hookmetamethod(game, "__index", LPH_NO_VIRTUALIZE(function(...)
             local Self, Index = ...
@@ -1393,7 +1394,6 @@ if not Solara then
     end
 
     repeat Services.RunService.RenderStepped:Wait() until getgenv().AntiCheatBypass == true
-end
 
 
 local OldLightingSettings = {}
@@ -1493,13 +1493,22 @@ do
 
         local Stamina_Table = {};
 
-        if Game_Name == "South Bronx" and not Solara then
-            for Index, Value in getgc(true) do
-                if typeof(Value) == "table" and rawget(Value, "Stamina") then
-                    Stamina_Table = Value
+if Game_Name == "South Bronx" and not Solara then
+    local success, objects = pcall(getgc, true)
+    if success then
+        for _, obj in ipairs(objects) do
+            if typeof(obj) == "table" then
+                local ok, hasStamina = pcall(function()
+                    return rawget(obj, "Stamina") ~= nil
+                end)
+                if ok and hasStamina then
+                    Stamina_Table = obj
+                    break -- ✅ Stop after first match to reduce load
                 end
             end
-        end;
+        end
+    end
+end
 
         local Set_Speed, Set_JumpPower, Set_Spectate = false, false, false
         if Game_Name == "The Bronx" then
@@ -1550,9 +1559,7 @@ do
                         Subject = LocalPlayer.Character.Humanoid
                     end
 
-                    if Camera and Subject then
-    Camera.CameraSubject = Subject
-end
+                    Camera.CameraSubject = Subject
                 else
                     if not Set_Spectate then
                         Set_Spectate = true
@@ -1595,9 +1602,7 @@ end
                         Subject = LocalPlayer.Character.Humanoid
                     end
 
-                    if Camera and Subject then
-    Camera.CameraSubject = Subject
-end
+                    Camera.CameraSubject = Subject
                 else
                     if not Set_Spectate then
                         Set_Spectate = true
@@ -1618,9 +1623,9 @@ end
                     return
                 end
 
-            if Stamina_Table and Stamina_Table.Stamina then
-                Stamina_Table.Stamina = 100
-            end
+                if Game_Name == "South Bronx" and Config.South_Bronx.LocalPlayer_Config.InfiniteStamina and not Solara then
+                    Stamina_Table.Stamina = 100
+                end
             end))
         end
 
@@ -1880,11 +1885,11 @@ end
                     end
                 end
 
-                if Game_Name == "South Bronx" then
-                    if Script and Script.Name == "RealismClient" then
-                        return __namecall(...)
-                    end
-                end
+if Game_Name == "South Bronx" then
+    if Script and Script.Name == "RealismClient" then
+        return __namecall and __namecall(...) or nil
+    end
+end
 
                 if Config.Silent.Enabled then
                     if Config.Silent.Targetting then
@@ -11704,7 +11709,7 @@ window:seperator({name = "Combat"}) do
         end
     end
 
-    if Game_Name == "South Bronx" and not Solara then
+    if Game_Name == "South Bronx" and not Solara and not Mobile then
         local WeaponModTab = window:tab({name = "Modifications", tabs = {"Weapon Modifications"}, icon = GetImage("Wrench.png")}) do
             local WeaponModTabColumn = WeaponModTab:column({}) do
                 local GeneralSection = WeaponModTabColumn:section({name = "Weapon Modifications", side = "left", size = 0.5, icon = GetImage("Pistol.png")})
