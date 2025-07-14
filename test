@@ -1,4 +1,4 @@
-print'SCRIPT PASSED THROUGH mble'
+print'SCRIPT PASSED THROUGH L3232321321UARMOR'
 
 if getgenv().loaded then 
     return
@@ -88,7 +88,7 @@ local Services = setmetatable({}, {
     end)
 })
 
-if Game_Name == "South Bronx" and not Solara and not Mobile then
+if Game_Name == "South Bronx" and not Solara and not Services.UserInputService.TouchEnabled then
 
     task.spawn( function() 
         local _getallthreads = LPH_JIT_MAX(function()
@@ -233,6 +233,7 @@ do
     mathrandom = math.random;
     mathabs = math.abs;
     Mobile = UserInputService.TouchEnabled
+
 
     Cars = {}
 
