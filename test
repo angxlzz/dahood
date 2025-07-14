@@ -1,4 +1,4 @@
-print'SCRIPT PASSED T1321UARMOR'
+print'SCRIPT PASSED THROUGH L3232321321UARMOR'
 
 if getgenv().loaded then 
     return
@@ -1326,9 +1326,8 @@ if not Solara then
         end))
 
         for Index, Value in getconnections(Services.Players.LocalPlayer.Idled) do
-            if Value["Disable"] then
-                Value["Disable"](Value)
-            end
+
+        end
 
         local get_nil_instance = LPH_JIT_MAX(function(name, class) 
             local found = nil 
