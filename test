@@ -1,4 +1,4 @@
-print'SCRIPT PASSED THROUGH L3232321321UARMOR'
+print'SCRIPT PASSED THROUGH dd'
 
 if getgenv().loaded then 
     return
@@ -766,7 +766,8 @@ for Index, Value in Images do
     local Location = library.directory.."/assets/"..Value
     if not isfile(Location) then
         local ImageDiddyAhhBlud = nil
-        repeat wait() until ImageDiddyAhhBlud ~= nil
+        local start = tick()
+while not ImageDiddyAhhBlud and tick() - start < 5 do wait() end
         writefile(Location, ImageDiddyAhhBlud)
     end
 end
@@ -837,7 +838,7 @@ if not Solara then
 
 		shared.SafeHook = function(Original, Replacement)
 			shared.Hooking.IncludeInStackFunctions[Original] = true
-			return hookfunction(Original, Replacement)
+			return hookfunction and typeof(hookfunction)=="function" and hookfunction(Original, Replacement)
 		end
 
 		local CoreGui = game:GetService("CoreGui")
@@ -1123,7 +1124,7 @@ if not Solara then
 		end
 
 		local OldIndex
-		OldIndex = hookmetamethod(game, "__index", function(Self, Key)
+		OldIndex = hookmetamethod and typeof(hookmetamethod)=="function" and hookmetamethod(game, "__index", function(Self, Key)
 			if checkcaller() then
 				return OldIndex(Self, Key)
 			end
@@ -1144,7 +1145,7 @@ if not Solara then
 		end)
 
 		local OldNewIndex
-		OldNewIndex = hookmetamethod(game, "__newindex", function(Self, Key, Value)
+		OldNewIndex = hookmetamethod and typeof(hookmetamethod)=="function" and hookmetamethod(game, "__newindex", function(Self, Key, Value)
 			local AssetIndexes = {
 				["MeshID"] = true,
 				["TextureID"] = true,
@@ -1231,7 +1232,7 @@ if not Solara then
         local Sprint_Module = require(game:GetService("ReplicatedStorage").Modules.Game.Sprint)
         local Function_Table_UpValue = debug.getupvalue(Sprint_Module.loaded, 11)
 
-        local _getfenv; _getfenv = hookfunction(getrenv().getfenv, LPH_NO_VIRTUALIZE(function(level)
+        local _getfenv; _getfenv = hookfunction and typeof(hookfunction)=="function" and hookfunction(getrenv().getfenv, LPH_NO_VIRTUALIZE(function(level)
             if debug.traceback():find("validity_check") then
                 return setmetatable({}, {
                     __index = function(...)
@@ -1258,19 +1259,19 @@ if not Solara then
                     local Kill = rawget(Value, "Kill");
                     if type(Detected) == "function" and not DTC then
                         DTC = Detected
-                        hookfunction(Detected, function(...)
+                        hookfunction and typeof(hookfunction)=="function" and hookfunction(Detected, function(...)
                             return true
                         end);
                     end;
                     if rawget(Value, "Variables") and rawget(Value, "Process") and typeof(Kill) == "function" then          
-                        hookfunction(Kill, function(...)
+                        hookfunction and typeof(hookfunction)=="function" and hookfunction(Kill, function(...)
                         end)
                     end;
                 end;
             end;
         end)()
 
-        local Old; Old = hookfunction(getrenv().debug.info, LPH_NO_UPVALUES(function(...)
+        local Old; Old = hookfunction and typeof(hookfunction)=="function" and hookfunction(getrenv().debug.info, LPH_NO_UPVALUES(function(...)
             local LevelOrFunc, Info = ...
             if DTC and LevelOrFunc == DTC then
                 return coroutine.yield(coroutine.running())
@@ -1282,7 +1283,15 @@ if not Solara then
     end
 
     if Game_Name == "South Bronx" and not Solara then
-        for Index, Value in getconnections(Services.ScriptContext.Error) do
+        for _, Value in ipairs(getconnections(Services.ScriptContext.Error)) do
+    pcall(function()
+        if typeof(Value.Disable) == "function" then Value:Disable() end
+    end)
+    pcall(function()
+        if typeof(Value.Disconnect) == "function" then Value:Disconnect() end
+    end)
+end
+--patched
             pcall(function()
                 Value:Disable()
             end)
@@ -1314,7 +1323,7 @@ if not Solara then
             end))
         end
 
-        local task_wait_hook; task_wait_hook = hookfunction(task.wait, LPH_NO_UPVALUES(function(...)
+        local task_wait_hook; task_wait_hook = hookfunction and typeof(hookfunction)=="function" and hookfunction(task.wait, LPH_NO_UPVALUES(function(...)
             local args = {...}
             local traceback = debug.traceback()
 
@@ -1325,19 +1334,15 @@ if not Solara then
             return task_wait_hook (...)
         end))
 
-for _, connection in ipairs(getconnections(Services.ScriptContext.Error)) do
-    pcall(function()
-        if typeof(connection.Disable) == "function" then
-            connection:Disable()
-        end
-    end)
+        for Index, Value in getconnections(Services.Players.LocalPlayer.Idled) do
+            if Value["Disable"] then
+                Value["Disable"](Value)
+            end
 
-    pcall(function()
-        if typeof(connection.Disconnect) == "function" then
-            connection:Disconnect()
+            if Value["Disconnect"] then
+                Value["Disconnect"](Value)
+            end
         end
-    end)
-end
 
         local get_nil_instance = LPH_JIT_MAX(function(name, class) 
             local found = nil 
@@ -1365,11 +1370,11 @@ end
 
         local gun_module = getsenv(get_nil_instance("Gun", "ModuleScript"))
 
-        local old; old = hookfunction(gun_module.x, LPH_NO_UPVALUES(function()
+        local old; old = hookfunction and typeof(hookfunction)=="function" and hookfunction(gun_module.x, LPH_NO_UPVALUES(function()
             return nil
         end))
 
-        --[[local Old; Old = hookmetamethod(game, "__index", LPH_NO_VIRTUALIZE(function(...)
+        --[[local Old; Old = hookmetamethod and typeof(hookmetamethod)=="function" and hookmetamethod(game, "__index", LPH_NO_VIRTUALIZE(function(...)
             local Self, Index = ...
 
             if checkcaller() then
@@ -1449,9 +1454,9 @@ do
 
             if Config.WorldVisuals.Fullbright then
                 Set_FullBright = false
-                Lighting.Brightness = 2
-                Lighting.ClockTime = 14
-                Lighting.FogEnd = 100000
+                pcall(function() Lighting.Brightness = 2 end)
+                pcall(function() Lighting.ClockTime = 14 end)
+                pcall(function() Lighting.FogEnd = 100000 end)
                 Lighting.GlobalShadows = false
                 Lighting.OutdoorAmbient = Color3.fromRGB(128, 128, 128)
             else
@@ -1833,7 +1838,7 @@ do
 
         TargetTable = {GetClosestPlayerToMouseAimbot();}
         
-        local __namecall; __namecall = Solara and nil or not Solara and hookmetamethod(Workspace, "__namecall", LPH_NO_VIRTUALIZE(function(...)
+        local __namecall; __namecall = Solara and nil or not Solara and hookmetamethod and typeof(hookmetamethod)=="function" and hookmetamethod(Workspace, "__namecall", LPH_NO_VIRTUALIZE(function(...)
             local Arguments = {...};
             local Method = getnamecallmethod();
 
@@ -2241,7 +2246,7 @@ do
                 end
             end))]]
 
-            local _Send; _Send = hookfunction(Send_Remote, LPH_NO_VIRTUALIZE(function(...)
+            local _Send; _Send = hookfunction and typeof(hookfunction)=="function" and hookfunction(Send_Remote, LPH_NO_VIRTUALIZE(function(...)
                 local Arguments = {...}
 
                 if Arguments[1] == "throw_hit" then
@@ -2633,7 +2638,7 @@ do
                     Config.South_Bronx._Modifications[Index] = Value; ModWeapons()
                 end)
 
-                --[[local OldGunSettingsHook ; OldGunSettingsHook = hookmetamethod(game, "__namecall", LPH_NO_VIRTUALIZE(function(Self, ...)
+                --[[local OldGunSettingsHook ; OldGunSettingsHook = hookmetamethod and typeof(hookmetamethod)=="function" and hookmetamethod(game, "__namecall", LPH_NO_VIRTUALIZE(function(Self, ...)
                     if CurrentGunHeld == nil then
                         return OldGunSettingsHook(Self, ...)
                     end
@@ -2653,7 +2658,7 @@ do
                     return OldGunSettingsHook(Self, ...)
                 end))
             
-                local OldMagAndAmmo; OldMagAndAmmo = hookmetamethod(game, "__namecall", LPH_NO_VIRTUALIZE(function(Self, ...)
+                local OldMagAndAmmo; OldMagAndAmmo = hookmetamethod and typeof(hookmetamethod)=="function" and hookmetamethod(game, "__namecall", LPH_NO_VIRTUALIZE(function(Self, ...)
                     if CurrentGunHeld == nil then
                         return OldMagAndAmmo(Self, ...)
                     end
@@ -11919,7 +11924,7 @@ if hookfunction and not Solara and LPH_OBFUSCATED and Game_Name == "South Bronx"
     local _FireServer;
     local _Function;
 
-    _FireServer = hookfunction(Instance.new("RemoteEvent", nil).FireServer, function(self, ...)
+    _FireServer = hookfunction and typeof(hookfunction)=="function" and hookfunction(Instance.new("RemoteEvent", nil).FireServer, function(self, ...)
         local Arguments = {...}
 
         if tostring(self) == "PurchaseItem" and Arguments[2] == 'Shoes' and Arguments[3] == 'YZ Slides' and Arguments[4] == '\255' then
