@@ -1,4 +1,4 @@
-print'SCRIPT PASSED THROUGH L3232321321UARMOR'
+print'SCRIPT PASSED THROUGH ADASDSAAA'
 
 if getgenv().loaded then 
     return
@@ -189,6 +189,7 @@ if Game_Name == "South Bronx" and not Solara then
             return AntiCheat_Function(Random_Message)
         end)
 
+        --[[
         Services.RunService.RenderStepped:Connect(LPH_JIT_MAX(function()
             AntiCheat_Threads = Get_AntiCheat_Threads()
 
@@ -204,6 +205,7 @@ if Game_Name == "South Bronx" and not Solara then
 
             XVNP_L()
         end))
+        ]]
     end)
     task.wait(5)
 end
@@ -1359,9 +1361,11 @@ if not Solara then
 
         local gun_module = getsenv(get_nil_instance("Gun", "ModuleScript"))
 
+        --[[
         local old; old = hookfunction(gun_module.x, LPH_NO_UPVALUES(function()
             return nil
         end))
+            ]]
 
         --[[local Old; Old = hookmetamethod(game, "__index", LPH_NO_VIRTUALIZE(function(...)
             local Self, Index = ...
@@ -1546,7 +1550,9 @@ do
                         Subject = LocalPlayer.Character.Humanoid
                     end
 
-                    Camera.CameraSubject = Subject
+                    if Camera and Subject then
+    Camera.CameraSubject = Subject
+end
                 else
                     if not Set_Spectate then
                         Set_Spectate = true
@@ -1589,7 +1595,9 @@ do
                         Subject = LocalPlayer.Character.Humanoid
                     end
 
-                    Camera.CameraSubject = Subject
+                    if Camera and Subject then
+    Camera.CameraSubject = Subject
+end
                 else
                     if not Set_Spectate then
                         Set_Spectate = true
@@ -1610,9 +1618,9 @@ do
                     return
                 end
 
-                if Game_Name == "South Bronx" and Config.South_Bronx.LocalPlayer_Config.InfiniteStamina and not Solara then
-                    Stamina_Table.Stamina = 100
-                end
+            if Stamina_Table and Stamina_Table.Stamina then
+                Stamina_Table.Stamina = 100
+            end
             end))
         end
 
