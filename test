@@ -1,4 +1,4 @@
-print'SCRIPT PASSED THROUGH LUARMOR'
+print'SCRIPT PASSED THROUGH L3232321321UARMOR'
 
 if getgenv().loaded then 
     return
@@ -1393,9 +1393,6 @@ if not Solara then
     repeat Services.RunService.RenderStepped:Wait() until getgenv().AntiCheatBypass == true
 end
 
-if Mobile then
-    getgenv().AntiCheatBypass = true
-end
 
 local OldLightingSettings = {}
 
