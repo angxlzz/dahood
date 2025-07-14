@@ -1325,11 +1325,6 @@ if not Solara then
             return task_wait_hook (...)
         end))
 
-        for Index, Value in getconnections(Services.Players.LocalPlayer.Idled) do
-            if Value["Disable"] then
-                Value["Disable"](Value)
-            end
-        end
 
         local get_nil_instance = LPH_JIT_MAX(function(name, class) 
             local found = nil 
