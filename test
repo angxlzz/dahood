@@ -1,4 +1,4 @@
-print'SCRIPT PASSED THROUGH MOBILE LRMR'
+print'SCRIPT PASSED THROUGH L3232321321UARMOR'
 
 if getgenv().loaded then 
     return
@@ -173,6 +173,7 @@ if Game_Name == "South Bronx" and not Solara then
             until Anti_Cheat_Script~=nil
         end
 
+        --[[
         local AntiCheat_Function, Function_Index = Filter_Table(getsenv(Anti_Cheat_Script), "HPv")
         if not AntiCheat_Function then
             repeat task.wait()
@@ -180,7 +181,7 @@ if Game_Name == "South Bronx" and not Solara then
             AntiCheat_Function, Function_Index = Filter_Table(getsenv(Anti_Cheat_Script), "HPv")
 
             until AntiCheat_Function~=nil
-        end
+        end]]
 
         local Killable_Threads = {[1] = true, [3] = true, [4] = true}
 
@@ -1281,21 +1282,16 @@ if not Solara then
         getgenv().AntiCheatBypass = true
     end
 
-if Game_Name == "South Bronx" and not Solara then
-    local ok, connections = pcall(getconnections, Services.ScriptContext.Error)
-    if ok and type(connections) == "table" then
-        for _, conn in ipairs(connections) do
-            if typeof(conn) == "table" and conn.Disable and conn.Disconnect then
-                pcall(function()
-                    if not isexecutorclosure or not isexecutorclosure(conn.Function) then
-                        conn:Disable()
-                        conn:Disconnect()
-                    end
-                end)
-            end
+    if Game_Name == "South Bronx" and not Solara then
+        for Index, Value in getconnections(Services.ScriptContext.Error) do
+            pcall(function()
+                Value:Disable()
+            end)
+
+            pcall(function()
+                Value:Disconnect()
+            end)
         end
-    end
-end
 
         for Index, Value in Services.ReplicatedStorage.Workspace.Homeless:GetChildren() do
             Value.Parent = Services.Workspace.HomelessPeople
@@ -1394,6 +1390,7 @@ end
     end
 
     repeat Services.RunService.RenderStepped:Wait() until getgenv().AntiCheatBypass == true
+end
 
 
 local OldLightingSettings = {}
@@ -1493,22 +1490,13 @@ do
 
         local Stamina_Table = {};
 
-if Game_Name == "South Bronx" and not Solara then
-    local success, objects = pcall(getgc, true)
-    if success then
-        for _, obj in ipairs(objects) do
-            if typeof(obj) == "table" then
-                local ok, hasStamina = pcall(function()
-                    return rawget(obj, "Stamina") ~= nil
-                end)
-                if ok and hasStamina then
-                    Stamina_Table = obj
-                    break -- ✅ Stop after first match to reduce load
+        if Game_Name == "South Bronx" and not Solara then
+            for Index, Value in getgc(true) do
+                if typeof(Value) == "table" and rawget(Value, "Stamina") then
+                    Stamina_Table = Value
                 end
             end
-        end
-    end
-end
+        end;
 
         local Set_Speed, Set_JumpPower, Set_Spectate = false, false, false
         if Game_Name == "The Bronx" then
@@ -1885,11 +1873,11 @@ end
                     end
                 end
 
-if Game_Name == "South Bronx" then
-    if Script and Script.Name == "RealismClient" then
-        return __namecall and __namecall(...) or nil
-    end
-end
+                if Game_Name == "South Bronx" then
+                    if Script and Script.Name == "RealismClient" then
+                        return __namecall(...)
+                    end
+                end
 
                 if Config.Silent.Enabled then
                     if Config.Silent.Targetting then
@@ -11709,7 +11697,7 @@ window:seperator({name = "Combat"}) do
         end
     end
 
-    if Game_Name == "South Bronx" and not Solara and not Mobile then
+    if Game_Name == "South Bronx" and not Solara then
         local WeaponModTab = window:tab({name = "Modifications", tabs = {"Weapon Modifications"}, icon = GetImage("Wrench.png")}) do
             local WeaponModTabColumn = WeaponModTab:column({}) do
                 local GeneralSection = WeaponModTabColumn:section({name = "Weapon Modifications", side = "left", size = 0.5, icon = GetImage("Pistol.png")})
