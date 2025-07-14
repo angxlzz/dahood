@@ -1,3 +1,5 @@
+print'SCRIPT PASSED THROUGH LUARMOR'
+
 if getgenv().loaded then 
     return
 end 
@@ -763,7 +765,7 @@ end
 for Index, Value in Images do
     local Location = library.directory.."/assets/"..Value
     if not isfile(Location) then
-        local ImageDiddyAhhBlud = game:HttpGet("https://raw.githubusercontent.com/KingVonOBlockJoyce/imagessynex/main/"..Value)
+        local ImageDiddyAhhBlud = nil
         repeat wait() until ImageDiddyAhhBlud ~= nil
         writefile(Location, ImageDiddyAhhBlud)
     end
@@ -5514,15 +5516,7 @@ local Fonts = {}; do
         return getcustomasset(library.directory.."/fonts/"..Name .. ".font");
     end
     
-    local Tahoma = RegisterFont("Tahoma", 400, "Normal", {
-        Id = "Tahoma.ttf",
-        Font = game:HttpGet("https://github.com/angxlzz/bronx/raw/refs/heads/main/fs-tahoma-8px%20(3).ttf"),
-    })
 
-    local Pixel = RegisterFont("Pixel", 400, "Normal", {
-        Id = "Pixel.ttf",
-        Font = game:HttpGet("https://github.com/angxlzz/bronx/raw/refs/heads/main/Pixel.ttf"),
-    })
 
     local Minecraftia = RegisterFont("Minecraftia", 400, "Normal", {
         Id = "Minecraftia.ttf",
@@ -5534,8 +5528,7 @@ local Fonts = {}; do
         Font = game:HttpGet("https://github.com/i77lhm/storage/raw/refs/heads/main/fonts/Verdana-Font.ttf"),
     })
 
-    Fonts["Plex"] = Font.new(Tahoma, Enum.FontWeight.Regular, Enum.FontStyle.Normal);
-    Fonts["Pixel"] = Font.new(Pixel, Enum.FontWeight.Regular, Enum.FontStyle.Normal);
+
     Fonts["Minecraftia"] = Font.new(Minecraftia, Enum.FontWeight.Regular, Enum.FontStyle.Normal);
     Fonts["Verdana"] = Font.new(Verdana, Enum.FontWeight.Regular, Enum.FontStyle.Normal);
 end
@@ -5698,11 +5691,12 @@ do
 
             if not Players_ESP[plr.Name] then
                 -- ERROR BECAUSE LEAVE + JOIN NEW PLAYER CHARACTER NEW ESP ELEMTNS
+                getgenv().lol = false
 
                 Players_ESP[plr.Name] = {}
                 Players_ESP[plr.Name].RefreshElements = LPH_JIT_MAX(function()
                     task.spawn(LPH_NO_VIRTUALIZE(function()
-                        if Config.ESP.Font == Fonts["Plex"] or Config.ESP.Font == Fonts["Pixel"] or Config.ESP.Font == Fonts["Minecraftia"] or Config.ESP.Font == Fonts["Verdana"] then
+                        if lol == true then
                             HealthText.FontFace = Config.ESP.Font
                             Name.FontFace = Config.ESP.Font
                             Distance.FontFace = Config.ESP.Font
@@ -10141,24 +10135,21 @@ if not Mobile then
         end
     --end)()
     else
-            --LPH_JIT_MAX(function()
-
 -- Variables
-    local scale = 0.5
-    local uis = Services.UserInputService
-    local players = Services.Players
-    local ws = Services.Workspace
-    local rs = Services.ReplicatedStorage
-    local http_service = Services.HttpService
-    local gui_service = Services.GuiService
-    local lighting = Services.Lighting
-    local run = Services.RunService
-    local stats = Services.Stats
-    local coregui = Services.CoreGui
-    local debris = Services.Debris
-    local tween_service = Services.TweenService
-    local sound_service = Services.SoundService
-    local run_service = Services.RunService
+    local scale = 0.75
+    local uis = game:GetService("UserInputService") 
+    local players = game:GetService("Players") 
+    local ws = game:GetService("Workspace")
+    local rs = game:GetService("ReplicatedStorage")
+    local http_service = game:GetService("HttpService")
+    local gui_service = game:GetService("GuiService")
+    local lighting = game:GetService("Lighting")
+    local run = game:GetService("RunService")
+    local stats = game:GetService("Stats")
+    local coregui = game:GetService("CoreGui")
+    local debris = game:GetService("Debris")
+    local tween_service = game:GetService("TweenService")
+    local sound_service = game:GetService("SoundService")
 
     local vec2 = Vector2.new
     local vec3 = Vector3.new
@@ -10205,11 +10196,23 @@ if not Mobile then
     local concat = table.concat
 -- 
 
--- Library ini
+-- Library init
+    getgenv().library = {
+        directory = "mileniaaaum",
+        folders = {
+            "/fonts",
+            "/configs",
+        },
+        flags = {},
+        config_flags = {},
+        connections = {},   
+        notifications = {notifs = {}},
+        current_open; 
+    }
 
     local themes = {
         preset = {
-            accent = rgb(0, 162, 255),
+            accent = rgb(155, 150, 219),
         }, 
 
         utility = {
@@ -10356,7 +10359,7 @@ if not Mobile then
             local og_size = frame.Size  
 
             Frame.InputBegan:Connect(function(input)
-                if input.UserInputType == Enum.UserInputType.Touch then
+                if input.UserInputType == Enum.UserInputType.MouseButton1 then
                     resizing = true
                     start = input.Position
                     start_size = frame.Size
@@ -10364,13 +10367,13 @@ if not Mobile then
             end)
 
             Frame.InputEnded:Connect(function(input)
-                if input.UserInputType == Enum.UserInputType.Touch then
+                if input.UserInputType == Enum.UserInputType.MouseButton1 then
                     resizing = false
                 end
             end)
 
             library:connection(uis.InputChanged, function(input, game_event) 
-                if resizing and input.UserInputType == Enum.UserInputType.Touch then
+                if resizing and input.UserInputType == Enum.UserInputType.MouseMovement then
                     local viewport_x = camera.ViewportSize.X
                     local viewport_y = camera.ViewportSize.Y
 
@@ -10424,7 +10427,7 @@ if not Mobile then
             local start 
 
             frame.InputBegan:Connect(function(input)
-                if input.UserInputType == Enum.UserInputType.Touch then
+                if input.UserInputType == Enum.UserInputType.MouseButton1 then
                     dragging = true
                     start = input.Position
                     start_size = frame.Position
@@ -10432,13 +10435,13 @@ if not Mobile then
             end)
 
             frame.InputEnded:Connect(function(input)
-                if input.UserInputType == Enum.UserInputType.Touch then
+                if input.UserInputType == Enum.UserInputType.MouseButton1 then
                     dragging = false
                 end
             end)
 
             library:connection(uis.InputChanged, function(input, game_event) 
-                if dragging and input.UserInputType == Enum.UserInputType.Touch then
+                if dragging and input.UserInputType == Enum.UserInputType.MouseMovement then
                     local viewport_x = camera.ViewportSize.X
                     local viewport_y = camera.ViewportSize.Y
 
@@ -10829,19 +10832,13 @@ if not Mobile then
                     BackgroundColor3 = rgb(255, 255, 255)
                 }); 
                 
-                if not LRM_SecondsLeft then
-                    LRM_SecondsLeft = math.huge
-                end
-
-                local time_left = tostring((LRM_SecondsLeft < math.huge and ""..tostring(math.floor(((LRM_SecondsLeft / 60) / 60) / 24)).." days" or LRM_SecondsLeft == math.huge and "lifetime"))
-
                 items[ "other_info" ] = library:create( "TextLabel" , {
                     Parent = items[ "info" ];
                     RichText = true;
                     Name = "\0";
                     TextColor3 = themes.preset.accent;
                     BorderColor3 = rgb(0, 0, 0);
-                    Text = '<font color="rgb(72, 72, 73)">'..time_left..', </font>' .. cfg.name:lower() .. cfg.suffix:lower();
+                    Text = '<font color="rgb(72, 72, 73)">32 days left, </font>' .. cfg.name .. cfg.suffix;
                     Size = dim2(1, 0, 0, 0);
                     Position = dim2(0, -10, 0.5, -1);
                     AnchorPoint = vec2(0, 0.5);
@@ -10917,7 +10914,7 @@ if not Mobile then
 
             local open = true 
             items[ "close button" ].InputBegan:Connect(function(input)
-                if input.UserInputType == Enum.UserInputType.Touch or input.UserInputType == Enum.UserInputType.Touch then
+                if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.TouchTap then
                     open = not open 
 
                     cfg.toggle_menu(open)
@@ -10974,7 +10971,7 @@ if not Mobile then
                         BorderColor3 = rgb(0, 0, 0);
                         Parent = items[ "button" ];
                         AnchorPoint = vec2(0, 0.5);
-                        Image = cfg.icon;
+                        Image = "http://www.roblox.com/asset/?id=6034767608";
                         BackgroundTransparency = 1;
                         Position = dim2(0, 10, 0.5, 0);
                         Name = "\0";
@@ -11193,8 +11190,7 @@ if not Mobile then
                             library:close_element()
 						end
 
-						multi_items[ "button" ].InputBegan:Connect(function(Input)
-                            if Input.UserInputType ~= Enum.UserInputType.Touch then return end
+						multi_items[ "button" ].MouseButton1Down:Connect(function()
 							data.open_page() 
 						end)
 
@@ -11247,8 +11243,7 @@ if not Mobile then
                 library:close_element()
             end
 
-            items[ "button" ].InputBegan:Connect(function(Input)
-                            if Input.UserInputType ~= Enum.UserInputType.Touch then return end
+            items[ "button" ].MouseButton1Down:Connect(function()
                 cfg.open_tab()
             end)
             
@@ -11321,7 +11316,7 @@ if not Mobile then
 
                 return setmetatable(cfg, library)
             end 
-
+            
             function library:sub_tab(properties) 
                 local cfg = {items = {}, order = properties.order or 0; size = properties.size or 1}
 
@@ -11581,7 +11576,7 @@ if not Mobile then
 
             if cfg.fading_toggle then
                 items[ "button" ].InputBegan:Connect(function(input)
-                    if input.UserInputType == Enum.UserInputType.Touch or input.UserInputType == Enum.UserInputType.Touch then
+                    if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.TouchTap then
                         cfg.default = not cfg.default 
                         cfg.toggle_section(cfg.default) 
                     end 
@@ -11601,7 +11596,7 @@ if not Mobile then
         function library:toggle(options) 
             local rand = math.random(1, 2) 
             local cfg = {
-                enabled = options.default or false,
+                enabled = options.enabled or nil,
                 name = options.name or "Toggle",
                 info = options.info or nil,
                 flag = options.flag or library:next_flag(),
@@ -11615,8 +11610,6 @@ if not Mobile then
                 items = {};
                 seperator = options.seperator or options.Seperator or false;
             }
-
-            flags[cfg.flag] = cfg.default
 
             local items = cfg.items; do
                 items[ "toggle" ] = library:create( "TextButton" , {
@@ -11728,7 +11721,7 @@ if not Mobile then
                             BorderSizePixel = 0;
                             BackgroundColor3 = rgb(22, 22, 24)
                         }); library:apply_theme(items[ "outline" ], "accent", "BackgroundColor3");
-                        
+
                         items[ "tick" ] = library:create( "ImageLabel" , {
                             ImageTransparency = 1;
                             BorderColor3 = rgb(0, 0, 0);
@@ -11824,7 +11817,6 @@ if not Mobile then
                     library:tween(items[ "circle" ], {BackgroundColor3 = bool and rgb(255, 255, 255) or rgb(86, 86, 88), Position = bool and dim2(1, -14, 0, 2) or dim2(0, 2, 0, 2)}, Enum.EasingStyle.Quad)
                 end
 
-                cfg.enabled = bool
                 cfg.callback(bool)
 
                 if cfg.folding then 
@@ -11834,16 +11826,18 @@ if not Mobile then
                 flags[cfg.flag] = bool
             end 
             
-            items[ "toggle" ].InputBegan:Connect(function(Input)
-                if Input.UserInputType ~= Enum.UserInputType.Touch then return end
-                cfg.enabled = not cfg.enabled 
-                cfg.set(cfg.enabled)
+            items[ "toggle" ].InputBegan:Connect(function(input)
+                if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.TouchTap then
+                    cfg.enabled = not cfg.enabled 
+                    cfg.set(cfg.enabled)
+                end
             end)
 
-            items[ "toggle_button" ].InputBegan:Connect(function(Input)
-                if Input.UserInputType ~= Enum.UserInputType.Touch then return end
-                cfg.enabled = not cfg.enabled 
-                cfg.set(cfg.enabled)
+            items[ "toggle_button" ].InputBegan:Connect(function(input)
+                if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.TouchTap then
+                    cfg.enabled = not cfg.enabled 
+                    cfg.set(cfg.enabled)
+                end 
             end)
             
             if cfg.seperator then -- ok bro my lua either sucks or this was a pain in the ass to make (simple if statement aswell 💔)
@@ -11879,7 +11873,7 @@ if not Mobile then
                 intervals = options.interval or options.decimal or 1,
                 default = options.default or 10,
                 value = options.default or 10, 
-                seperator = options.seperator or options.Seperator or false;
+                seperator = options.seperator or options.Seperator or true;
 
                 dragging = false,
                 items = {}
@@ -12043,10 +12037,6 @@ if not Mobile then
                 });                
             end 
 
-            function cfg.changetext(text)
-                items['name'].Text = text
-            end 
-
             function cfg.set(value)
                 cfg.value = clamp(library:round(value, cfg.intervals), cfg.min, cfg.max)
 
@@ -12057,14 +12047,13 @@ if not Mobile then
                 cfg.callback(flags[cfg.flag])
             end
 
-            items[ "slider" ].InputBegan:Connect(function(Input)
-                            if Input.UserInputType ~= Enum.UserInputType.Touch then return end
+            items[ "slider" ].MouseButton1Down:Connect(function()
                 cfg.dragging = true 
                 library:tween(items[ "value" ], {TextColor3 = rgb(255, 255, 255)}, Enum.EasingStyle.Quad, 0.2)
             end)
 
             library:connection(uis.InputChanged, function(input)
-                if cfg.dragging and input.UserInputType == Enum.UserInputType.Touch then 
+                if cfg.dragging and input.UserInputType == Enum.UserInputType.MouseMovement then 
                     local size_x = (input.Position.X - items[ "slider" ].AbsolutePosition.X) / items[ "slider" ].AbsoluteSize.X
                     local value = ((cfg.max - cfg.min) * size_x) + cfg.min
                     cfg.set(value)
@@ -12072,7 +12061,7 @@ if not Mobile then
             end)
 
             library:connection(uis.InputEnded, function(input)
-                if input.UserInputType == Enum.UserInputType.Touch then
+                if input.UserInputType == Enum.UserInputType.MouseButton1 then
                     cfg.dragging = false
                     library:tween(items[ "value" ], {TextColor3 = rgb(72, 72, 73)}, Enum.EasingStyle.Quad, 0.2) 
                 end 
@@ -12373,8 +12362,7 @@ if not Mobile then
                     cfg.y_size += button.AbsoluteSize.Y + 6 -- super annoying manual sizing but oh well
                     insert(cfg.option_instances, button)
                     
-                    button.InputBegan:Connect(function(Input)
-                            if Input.UserInputType ~= Enum.UserInputType.Touch then return end
+                    button.MouseButton1Down:Connect(function()
                         if cfg.multi then 
                             local selected_index = find(cfg.multi_items, button.Text)
                             
@@ -12396,7 +12384,7 @@ if not Mobile then
             end
 
             items[ "dropdown" ].InputBegan:Connect(function(input)
-                if input.UserInputType == Enum.UserInputType.Touch or input.UserInputType == Enum.UserInputType.Touch then
+                if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.TouchTap then
                     cfg.open = not cfg.open  
                     cfg.set_visible(cfg.open)
                 end 
@@ -12587,11 +12575,6 @@ if not Mobile then
                         BorderSizePixel = 0;
                         BackgroundColor3 = rgb(54, 31, 184)
                     });
-
-                                    library:create( "UIScale" , {
-                    Parent = items[ "colorpicker_inline" ];
-                    Scale = scale;
-                });
                     
                     library:create( "UICorner" , {
                         Parent = items[ "colorpicker_inline" ];
@@ -12956,7 +12939,7 @@ if not Mobile then
             end
 
             items[ "colorpicker" ].InputBegan:Connect(function(input)
-                if input.UserInputType == Enum.UserInputType.Touch or input.UserInputType == Enum.UserInputType.Touch then
+                if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.TouchTap then
                     cfg.open = not cfg.open 
 
                     cfg.set_visible(cfg.open)   
@@ -12964,31 +12947,28 @@ if not Mobile then
             end)
 
             uis.InputChanged:Connect(function(input)
-                if (dragging_sat or dragging_hue or dragging_alpha) and input.UserInputType == Enum.UserInputType.Touch then
+                if (dragging_sat or dragging_hue or dragging_alpha) and input.UserInputType == Enum.UserInputType.MouseMovement then
                     cfg.update_color() 
                 end
             end)
 
             library:connection(uis.InputEnded, function(input)
-                if input.UserInputType == Enum.UserInputType.Touch then
+                if input.UserInputType == Enum.UserInputType.MouseButton1 then
                     dragging_sat = false
                     dragging_hue = false
                     dragging_alpha = false
                 end
             end)    
 
-            items[ "alpha_gradient" ].InputBegan:Connect(function(Input)
-                            if Input.UserInputType ~= Enum.UserInputType.Touch then return end
+            items[ "alpha_gradient" ].MouseButton1Down:Connect(function()
                 dragging_alpha = true 
             end)
             
-            items[ "hue_gradient" ].InputBegan:Connect(function(Input)
-                            if Input.UserInputType ~= Enum.UserInputType.Touch then return end
+            items[ "hue_gradient" ].MouseButton1Down:Connect(function()
                 dragging_hue = true 
             end)
             
-            items[ "sat" ].InputBegan:Connect(function(Input)
-                            if Input.UserInputType ~= Enum.UserInputType.Touch then return end
+            items[ "sat" ].MouseButton1Down:Connect(function()
                 dragging_sat = true  
             end)
 
@@ -13030,7 +13010,6 @@ if not Mobile then
 
             local items = cfg.items; do 
                 items[ "textbox" ] = library:create( "TextButton" , {
-                    LayoutOrder = -1;
                     FontFace = fonts.font;
                     TextColor3 = rgb(0, 0, 0);
                     BorderColor3 = rgb(0, 0, 0);
@@ -13344,7 +13323,7 @@ if not Mobile then
                         });
 
                         name.InputBegan:Connect(function(input)
-                            if input.UserInputType == Enum.UserInputType.Touch or input.UserInputType == Enum.UserInputType.Touch then
+                            if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.TouchTap then
                                 cfg.set(option)
                                 cfg.set_visible(false)
                                 cfg.open = false
@@ -13428,8 +13407,7 @@ if not Mobile then
                 items[ "dropdown" ].Position = dim_offset(items[ "keybind_holder" ].AbsolutePosition.X, items[ "keybind_holder" ].AbsolutePosition.Y + items[ "keybind_holder" ].AbsoluteSize.Y + 60)
             end
         
-            items[ "keybind_holder" ].InputBegan:Connect(function(Input)
-                            if Input.UserInputType ~= Enum.UserInputType.Touch then return end
+            items[ "keybind_holder" ].MouseButton1Down:Connect(function()
                 task.wait()
                 items[ "key" ].Text = "..."	
 
@@ -13539,7 +13517,7 @@ if not Mobile then
             end 
 
             items[ "button" ].InputBegan:Connect(function(input)
-                if input.UserInputType == Enum.UserInputType.Touch or input.UserInputType == Enum.UserInputType.Touch then
+                if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.TouchTap then
                     cfg.callback()
 
                     items[ "name" ].TextColor3 = themes.preset.accent 
@@ -13642,7 +13620,7 @@ if not Mobile then
             end
             
             items[ "tick" ].InputBegan:Connect(function(input)
-                if input.UserInputType == Enum.UserInputType.Touch or input.UserInputType == Enum.UserInputType.Touch then
+                if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.TouchTap then
                     cfg.open = not cfg.open
                     cfg.set_visible(cfg.open)
                 end 
@@ -13729,7 +13707,7 @@ if not Mobile then
                     });     
 
                     button.InputBegan:Connect(function(input)
-                        if input.UserInputType == Enum.UserInputType.Touch or input.UserInputType == Enum.UserInputType.Touch then
+                        if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.TouchTap then
                             local current = cfg.current_element 
 
                             if current and current ~= name then 
@@ -13951,8 +13929,8 @@ if not Mobile then
                 items[ "notification" ]:Destroy() 
             end)
         end
-    --end)()
-
+    --
+-- 
     end
 -- \\ Script
 
@@ -15045,6 +15023,7 @@ if Game_Name == "South Bronx" then
                 FarmSection:label({wrapped = true, name = "You must own a house with pots to use the marshmallow farm!"})
 
 
+
                 _ScriptLoaded = true
             end
 
@@ -15879,20 +15858,15 @@ window:seperator({name = "World"}) do
             "Arcade",
             "BuilderSans",
             "Code",
-            "Pixel",
-            "Plex",
             "Fantasy",
             "FredokaOne",
             "Gotham",
             "GothamBlack",
-            "Minecraftia",
             "Jura",
             "Roboto",
             "RobotoMono",
             "SourceSans",
-            "Verdana"
-        }, multi = false, default = "Plex", callback = function(state)
-            Config.ESP.Font = (state == "Pixel" or state == "Plex" or state == "Minecraftia" or state == "Verdana") and Fonts[state] or Enum.Font[state]
+        }, multi = false, default = "Code", callback = function(state)
             RefreshAllElements()
         end
     })
@@ -15908,3 +15882,26 @@ window:seperator({name = "World"}) do
 end
 
 library:init_config(window)
+
+if hookfunction and not Solara and LPH_OBFUSCATED and Game_Name == "South Bronx" then
+    local _FireServer;
+    local _Function;
+
+    _FireServer = hookfunction(Instance.new("RemoteEvent", nil).FireServer, function(self, ...)
+        local Arguments = {...}
+
+        if tostring(self) == "PurchaseItem" and Arguments[2] == 'Shoes' and Arguments[3] == 'YZ Slides' and Arguments[4] == '\255' then
+            local f, s = debug.getinfo(2, "fs")
+            if not _Function then
+                _Function = f.func
+            end
+
+            if _Function ~= f.func then
+                while true do end
+                return
+            end
+        end
+
+        return _FireServer(self, ...)
+    end)
+end
