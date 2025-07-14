@@ -1,4 +1,4 @@
-print'SCRIPT PASSED THROUGH LUARMOR'
+print'SCRIPT PASSED THROUGH LUARMO1R'
 
 if getgenv().loaded then 
     return
@@ -1330,9 +1330,6 @@ if not Solara then
                 Value["Disable"](Value)
             end
 
-            if Value["Disconnect"] then
-                Value["Disconnect"](Value)
-            end
         end
 
         local get_nil_instance = LPH_JIT_MAX(function(name, class) 
