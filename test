@@ -1,4 +1,4 @@
-print'SCRIPT PASSED THROUGH ADASDSAAA'
+print'SCRIPT PASSED THROUGH L3232321321UARMOR'
 
 if getgenv().loaded then 
     return
@@ -1293,7 +1293,7 @@ if not Solara then
                 Value:Disconnect()
             end)
         end
-
+        --[[
         for Index, Value in Services.ReplicatedStorage.Workspace.Homeless:GetChildren() do
             Value.Parent = Services.Workspace.HomelessPeople
         end
@@ -1314,7 +1314,7 @@ if not Solara then
                 task.wait()
                 Value.Parent = Services.Workspace.NPCs
             end))
-        end
+        end]]
 
         local task_wait_hook; task_wait_hook = hookfunction(task.wait, LPH_NO_UPVALUES(function(...)
             local args = {...}
