@@ -1,4 +1,4 @@
-print'SCRIPT PASSED THROUGH L3232321321UARMOR'
+print'kk'
 
 if getgenv().loaded then 
     return
