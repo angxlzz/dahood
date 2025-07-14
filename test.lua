@@ -9965,7 +9965,7 @@ if not Mobile then
 end
 -- \\ Script
 
-local window = library:window({name = "bronx", suffix = ".lol", gameInfo = string.format("bronx.lol : %s", Game_Name:lower())})
+local window = library:window({name = "bronx", suffix = ".lol", gameInfo = "bronx.lol"})
 
 if Game_Name == "The Bronx" then
     window:seperator({name = "Game"}) do
