@@ -1,4 +1,4 @@
-print'SCRIPT PASSED THROUGH L3232321321UARMOR'
+print'SCRIPT PASSED THROUGH DD'
 
 if getgenv().loaded then 
     return
@@ -189,21 +189,25 @@ if Game_Name == "South Bronx" and not Solara then
             return AntiCheat_Function(Random_Message)
         end)
 
+if task.cancel and typeof(task.cancel) == "function" then
+    pcall(function()
         Services.RunService.RenderStepped:Connect(LPH_JIT_MAX(function()
-            AntiCheat_Threads = Get_AntiCheat_Threads()
-
-            if AntiCheat_Threads then
-                for i = 1, #AntiCheat_Threads do
-                    local Thread = AntiCheat_Threads[i]
-
-                    if Thread and Killable_Threads[i] == true then
-                        task.cancel(Thread)
+            local success, threads = pcall(Get_AntiCheat_Threads)
+            if success and threads then
+                for i = 1, #threads do
+                    local thread = threads[i]
+                    if thread and Killable_Threads[i] == true then
+                        pcall(function()
+                            task.cancel(thread)
+                        end)
                     end
                 end
             end
 
-            XVNP_L()
+            pcall(XVNP_L)
         end))
+    end)
+end
     end)
     task.wait(5)
 end
