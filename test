@@ -1,4 +1,4 @@
-print'SCRIPT PASSED THROUGH ALRIGHTDUDE'
+print'SCRIPT PASSED THROUGH L3232321321UARMOR'
 
 if getgenv().loaded then 
     return
@@ -1325,10 +1325,13 @@ if not Solara then
             return task_wait_hook (...)
         end))
 
-Services.Players.LocalPlayer.Idled:Connect(function()
-    VirtualInputManager:SendKeyEvent(true, Enum.KeyCode.Space, false, game)
-    VirtualInputManager:SendKeyEvent(false, Enum.KeyCode.Space, false, game)
-end)
+        local vim = game:GetService("VirtualInputManager")
+        Services.Players.LocalPlayer.Idled:Connect(function()
+            pcall(function()
+                vim:SendKeyEvent(true, Enum.KeyCode.Space, false, game)
+                vim:SendKeyEvent(false, Enum.KeyCode.Space, false, game)
+            end)
+        end)
 
         local get_nil_instance = LPH_JIT_MAX(function(name, class) 
             local found = nil 
