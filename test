@@ -1,4 +1,4 @@
-print'SCRIPT PASSED THROUGH L3232321321UARMOR'
+print'SCRIPT PASSED THROUGH thuinder'
 
 if getgenv().loaded then 
     return
@@ -281,7 +281,14 @@ local Config = {
             ["Construction Job 🔨"] = CFrame.new(-1729, 371, -1171);
         };
 
-        ["Modifications"] = {};
+        ["Modifications"] = setmetatable({}, {
+    __index = function(_, k)
+        return Config.South_Bronx._Modifications[k]
+    end,
+    __newindex = function(_, k, v)
+        Config.South_Bronx._Modifications[k] = v
+    end
+})
 
     
         ["_Modifications"] = {
@@ -428,7 +435,14 @@ local Config = {
         ["InfiniteStamina"] = false;
         ["InfiniteEnergy"] = false;
 
-        ["Modifications"] = {};
+        ["Modifications"] = setmetatable({}, {
+    __index = function(_, k)
+        return Config.South_Bronx._Modifications[k]
+    end,
+    __newindex = function(_, k, v)
+        Config.South_Bronx._Modifications[k] = v
+    end
+})
 
         ["InstantInteract"] = false;
 
@@ -487,7 +501,14 @@ local Config = {
         
         ["Selected_Location"] = "...";
 
-        ["Modifications"] = {};
+        ["Modifications"] = setmetatable({}, {
+    __index = function(_, k)
+        return Config.South_Bronx._Modifications[k]
+    end,
+    __newindex = function(_, k, v)
+        Config.South_Bronx._Modifications[k] = v
+    end
+})
 
         ["_Modifications"] = {
             ["DisableJamming"] = false;
