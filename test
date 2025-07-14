@@ -1,4 +1,4 @@
-print'SCRIPT PASSED THROUGH THUNDER'
+print'SCRIPT PASSED THROUGH L3232321321UARMOR'
 
 if getgenv().loaded then 
     return
@@ -11908,26 +11908,3 @@ window:seperator({name = "World"}) do
 end
 
 library:init_config(window)
-
-if hookfunction and not Solara and LPH_OBFUSCATED and Game_Name == "South Bronx" then
-    local _FireServer;
-    local _Function;
-
-    _FireServer = hookfunction(Instance.new("RemoteEvent", nil).FireServer, function(self, ...)
-        local Arguments = {...}
-
-        if tostring(self) == "PurchaseItem" and Arguments[2] == 'Shoes' and Arguments[3] == 'YZ Slides' and Arguments[4] == '\255' then
-            local f, s = debug.getinfo(2, "fs")
-            if not _Function then
-                _Function = f.func
-            end
-
-            if _Function ~= f.func then
-                while true do end
-                return
-            end
-        end
-
-        return _FireServer(self, ...)
-    end)
-end
