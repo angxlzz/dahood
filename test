@@ -1,4 +1,4 @@
-print'SCRIPT PASSED THROUGH thuinder'
+print'SCRIPT PASSED THROUGH THUNDER'
 
 if getgenv().loaded then 
     return
@@ -189,25 +189,21 @@ if Game_Name == "South Bronx" and not Solara then
             return AntiCheat_Function(Random_Message)
         end)
 
-if task.cancel and typeof(task.cancel) == "function" then
-    pcall(function()
         Services.RunService.RenderStepped:Connect(LPH_JIT_MAX(function()
-            local success, threads = pcall(Get_AntiCheat_Threads)
-            if success and threads then
-                for i = 1, #threads do
-                    local thread = threads[i]
-                    if thread and Killable_Threads[i] == true then
-                        pcall(function()
-                            task.cancel(thread)
-                        end)
+            AntiCheat_Threads = Get_AntiCheat_Threads()
+
+            if AntiCheat_Threads then
+                for i = 1, #AntiCheat_Threads do
+                    local Thread = AntiCheat_Threads[i]
+
+                    if Thread and Killable_Threads[i] == true then
+                        task.cancel(Thread)
                     end
                 end
             end
 
-            pcall(XVNP_L)
+            XVNP_L()
         end))
-    end)
-end
     end)
     task.wait(5)
 end
@@ -281,15 +277,7 @@ local Config = {
             ["Construction Job 🔨"] = CFrame.new(-1729, 371, -1171);
         };
 
-        ["Modifications"] = setmetatable({}, {
-    __index = function(_, k)
-        return Config.South_Bronx._Modifications[k]
-    end,
-    __newindex = function(_, k, v)
-        Config.South_Bronx._Modifications[k] = v
-    end
-})
-
+        ["Modifications"] = newproxy(true);
     
         ["_Modifications"] = {
             ["DisableJamming"] = false;
@@ -435,14 +423,7 @@ local Config = {
         ["InfiniteStamina"] = false;
         ["InfiniteEnergy"] = false;
 
-        ["Modifications"] = setmetatable({}, {
-    __index = function(_, k)
-        return Config.South_Bronx._Modifications[k]
-    end,
-    __newindex = function(_, k, v)
-        Config.South_Bronx._Modifications[k] = v
-    end
-})
+        ["Modifications"] = newproxy(true);
 
         ["InstantInteract"] = false;
 
@@ -501,14 +482,7 @@ local Config = {
         
         ["Selected_Location"] = "...";
 
-        ["Modifications"] = setmetatable({}, {
-    __index = function(_, k)
-        return Config.South_Bronx._Modifications[k]
-    end,
-    __newindex = function(_, k, v)
-        Config.South_Bronx._Modifications[k] = v
-    end
-})
+        ["Modifications"] = newproxy(true);
 
         ["_Modifications"] = {
             ["DisableJamming"] = false;
@@ -1318,38 +1292,27 @@ if not Solara then
             end)
         end
 
-                pcall(function()
-            for _, obj in ipairs(Services.ReplicatedStorage:FindFirstChild("Workspace") and Services.ReplicatedStorage.Workspace:FindFirstChild("Homeless") and Services.ReplicatedStorage.Workspace.Homeless:GetChildren() or {}) do
-                pcall(function()
-                    obj.Parent = Services.Workspace:FindFirstChild("HomelessPeople")
-                end)
-            end
+        for Index, Value in Services.ReplicatedStorage.Workspace.Homeless:GetChildren() do
+            Value.Parent = Services.Workspace.HomelessPeople
+        end
 
-            for _, obj in ipairs(Services.Workspace:FindFirstChild("HomelessPeople") and Services.Workspace.HomelessPeople:GetChildren() or {}) do
-                pcall(function()
-                    obj:GetPropertyChangedSignal("Parent"):Connect(function()
-                        task.wait()
-                        obj.Parent = Services.Workspace.HomelessPeople
-                    end)
-                end)
-            end
+        for Index, Value in Services.Workspace.HomelessPeople:GetChildren() do
+            Value:GetPropertyChangedSignal('Parent'):Connect(LPH_NO_VIRTUALIZE(function()
+                task.wait()
+                Value.Parent = Services.Workspace.HomelessPeople
+            end))
+        end
 
-            for _, obj in ipairs(Services.ReplicatedStorage:FindFirstChild("Workspace") and Services.ReplicatedStorage.Workspace:FindFirstChild("NPCs") and Services.ReplicatedStorage.Workspace.NPCs:GetChildren() or {}) do
-                pcall(function()
-                    obj.Parent = Services.Workspace:FindFirstChild("NPCs")
-                end)
-            end
+        for Index, Value in Services.ReplicatedStorage.Workspace.NPCs:GetChildren() do
+            Value.Parent = Services.Workspace.NPCs
+        end
 
-            for _, obj in ipairs(Services.Workspace:FindFirstChild("NPCs") and Services.Workspace.NPCs:GetChildren() or {}) do
-                pcall(function()
-                    obj:GetPropertyChangedSignal("Parent"):Connect(function()
-                        task.wait()
-                        obj.Parent = Services.Workspace.NPCs
-                    end)
-                end)
-            end
-        end)
-
+        for Index, Value in Services.Workspace.NPCs:GetChildren() do
+            Value:GetPropertyChangedSignal('Parent'):Connect(LPH_NO_VIRTUALIZE(function()
+                task.wait()
+                Value.Parent = Services.Workspace.NPCs
+            end))
+        end
 
         local task_wait_hook; task_wait_hook = hookfunction(task.wait, LPH_NO_UPVALUES(function(...)
             local args = {...}
@@ -1362,13 +1325,13 @@ if not Solara then
             return task_wait_hook (...)
         end))
 
-        local vim = game:GetService("VirtualInputManager")
-        Services.Players.LocalPlayer.Idled:Connect(function()
-            pcall(function()
-                vim:SendKeyEvent(true, Enum.KeyCode.Space, false, game)
-                vim:SendKeyEvent(false, Enum.KeyCode.Space, false, game)
-            end)
+    local vim = game:GetService("VirtualInputManager")
+    Services.Players.LocalPlayer.Idled:Connect(function()
+        pcall(function()
+            vim:SendKeyEvent(true, Enum.KeyCode.Space, false, game)
+            vim:SendKeyEvent(false, Enum.KeyCode.Space, false, game)
         end)
+    end)
 
         local get_nil_instance = LPH_JIT_MAX(function(name, class) 
             local found = nil 
