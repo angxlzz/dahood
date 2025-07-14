@@ -1,4 +1,4 @@
-print'SCRIPT PASSED THROUGH DD'
+print'SCRIPT PASSED THROUGH L3232321321UARMOR'
 
 if getgenv().loaded then 
     return
@@ -281,7 +281,8 @@ local Config = {
             ["Construction Job 🔨"] = CFrame.new(-1729, 371, -1171);
         };
 
-        ["Modifications"] = newproxy(true);
+        ["Modifications"] = {};
+
     
         ["_Modifications"] = {
             ["DisableJamming"] = false;
@@ -427,7 +428,7 @@ local Config = {
         ["InfiniteStamina"] = false;
         ["InfiniteEnergy"] = false;
 
-        ["Modifications"] = newproxy(true);
+        ["Modifications"] = {};
 
         ["InstantInteract"] = false;
 
@@ -486,7 +487,7 @@ local Config = {
         
         ["Selected_Location"] = "...";
 
-        ["Modifications"] = newproxy(true);
+        ["Modifications"] = {};
 
         ["_Modifications"] = {
             ["DisableJamming"] = false;
@@ -1296,27 +1297,38 @@ if not Solara then
             end)
         end
 
-        for Index, Value in Services.ReplicatedStorage.Workspace.Homeless:GetChildren() do
-            Value.Parent = Services.Workspace.HomelessPeople
-        end
+                pcall(function()
+            for _, obj in ipairs(Services.ReplicatedStorage:FindFirstChild("Workspace") and Services.ReplicatedStorage.Workspace:FindFirstChild("Homeless") and Services.ReplicatedStorage.Workspace.Homeless:GetChildren() or {}) do
+                pcall(function()
+                    obj.Parent = Services.Workspace:FindFirstChild("HomelessPeople")
+                end)
+            end
 
-        for Index, Value in Services.Workspace.HomelessPeople:GetChildren() do
-            Value:GetPropertyChangedSignal('Parent'):Connect(LPH_NO_VIRTUALIZE(function()
-                task.wait()
-                Value.Parent = Services.Workspace.HomelessPeople
-            end))
-        end
+            for _, obj in ipairs(Services.Workspace:FindFirstChild("HomelessPeople") and Services.Workspace.HomelessPeople:GetChildren() or {}) do
+                pcall(function()
+                    obj:GetPropertyChangedSignal("Parent"):Connect(function()
+                        task.wait()
+                        obj.Parent = Services.Workspace.HomelessPeople
+                    end)
+                end)
+            end
 
-        for Index, Value in Services.ReplicatedStorage.Workspace.NPCs:GetChildren() do
-            Value.Parent = Services.Workspace.NPCs
-        end
+            for _, obj in ipairs(Services.ReplicatedStorage:FindFirstChild("Workspace") and Services.ReplicatedStorage.Workspace:FindFirstChild("NPCs") and Services.ReplicatedStorage.Workspace.NPCs:GetChildren() or {}) do
+                pcall(function()
+                    obj.Parent = Services.Workspace:FindFirstChild("NPCs")
+                end)
+            end
 
-        for Index, Value in Services.Workspace.NPCs:GetChildren() do
-            Value:GetPropertyChangedSignal('Parent'):Connect(LPH_NO_VIRTUALIZE(function()
-                task.wait()
-                Value.Parent = Services.Workspace.NPCs
-            end))
-        end
+            for _, obj in ipairs(Services.Workspace:FindFirstChild("NPCs") and Services.Workspace.NPCs:GetChildren() or {}) do
+                pcall(function()
+                    obj:GetPropertyChangedSignal("Parent"):Connect(function()
+                        task.wait()
+                        obj.Parent = Services.Workspace.NPCs
+                    end)
+                end)
+            end
+        end)
+
 
         local task_wait_hook; task_wait_hook = hookfunction(task.wait, LPH_NO_UPVALUES(function(...)
             local args = {...}
