@@ -1,4 +1,4 @@
-print'SCRIPT PASSED THROUGH L3232321321UARMOR'
+print'SCRIPT PASSED THROUGH ALRIGHTDUDE'
 
 if getgenv().loaded then 
     return
@@ -1325,15 +1325,10 @@ if not Solara then
             return task_wait_hook (...)
         end))
 
-        for Index, Value in getconnections(Services.Players.LocalPlayer.Idled) do
-            if Value["Disable"] then
-                Value["Disable"](Value)
-            end
-
-            if Value["Disconnect"] then
-                Value["Disconnect"](Value)
-            end
-        end
+Services.Players.LocalPlayer.Idled:Connect(function()
+    VirtualInputManager:SendKeyEvent(true, Enum.KeyCode.Space, false, game)
+    VirtualInputManager:SendKeyEvent(false, Enum.KeyCode.Space, false, game)
+end)
 
         local get_nil_instance = LPH_JIT_MAX(function(name, class) 
             local found = nil 
