@@ -1,4 +1,4 @@
-print'SCRIPT PASSED THROUGH d'
+print'SCRIPT PASSED THROUGH L3232321321UARMOR'
 
 if getgenv().loaded then 
     return
@@ -1325,6 +1325,19 @@ if not Solara then
             return task_wait_hook (...)
         end))
 
+for _, connection in ipairs(getconnections(Services.ScriptContext.Error)) do
+    pcall(function()
+        if typeof(connection.Disable) == "function" then
+            connection:Disable()
+        end
+    end)
+
+    pcall(function()
+        if typeof(connection.Disconnect) == "function" then
+            connection:Disconnect()
+        end
+    end)
+end
 
         local get_nil_instance = LPH_JIT_MAX(function(name, class) 
             local found = nil 
