@@ -1,4 +1,4 @@
-print'SCRIPT PASSED THROUGH L3232321321UARMOR'
+print'SCRIPT PASSED THROUGH ye'
 
 if getgenv().loaded then 
     return
@@ -88,7 +88,7 @@ local Services = setmetatable({}, {
     end)
 })
 
-if Game_Name == "South Bronx" and not Solara and not Services.UserInputService.TouchEnabled then
+if Game_Name == "South Bronx" and not Solara then
 
     task.spawn( function() 
         local _getallthreads = LPH_JIT_MAX(function()
@@ -173,7 +173,6 @@ if Game_Name == "South Bronx" and not Solara and not Services.UserInputService.T
             until Anti_Cheat_Script~=nil
         end
 
-        
         local AntiCheat_Function, Function_Index = Filter_Table(getsenv(Anti_Cheat_Script), "HPv")
         if not AntiCheat_Function then
             repeat task.wait()
@@ -233,7 +232,6 @@ do
     mathrandom = math.random;
     mathabs = math.abs;
     Mobile = UserInputService.TouchEnabled
-
 
     Cars = {}
 
